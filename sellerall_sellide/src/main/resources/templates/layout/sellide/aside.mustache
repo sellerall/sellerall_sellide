@@ -1,0 +1,38 @@
+<body>
+<div class="wrap">
+
+<div class="main-menu">
+  <div class="header_wrap">
+    <div class="login_section">
+      <a href="/sellide/main" class="logo _logo">
+        <img src="/img/logo/aside_logo.png" alt="로고">
+      </a>
+      <div class="login_wrap">
+        <span class="login_name"><span class="name">{{userName}}</span>님</span>
+      </div>
+    </div>
+    <ul class="icon_menu">
+    	{{#userName}}
+    	<li class="login_icon" id="logOutLi"><a href="/logout"><i class="fal fa-sign-out-alt"></i>로그아웃</a></li>
+        {{/userName}}
+    </ul>
+  </div>
+  <div class="main-menu-content _scroll" style="height: calc(100% - 179px);">
+    <ul class="navigation">
+      <li class="navigation-header"><i class="fas fa-info-circle"></i><span class="menu-title">관리자</span></li>
+      <li class="nav-item active"><a href="/sys/user/mgmt"><span class="menu-title">사용자관리</span></a></li><!-- active 클래스 추가 시, 활성화 -->
+      <li class="nav-item"><a href="/sys/menu/mgmt"><span class="menu-title">메뉴관리</span></a></li>
+      <li class="navigation-header"><i class="fas fa-info-circle"></i><span class="menu-title">에이드</span></li>
+      <li class="nav-item"><a href="#"><span class="menu-title">B2B 수집</span></a></li>
+      <li class="nav-item"><a href="#"><span class="menu-title">B2B 상태</span></a></li>
+      <li class="navigation-header"><i class="fas fa-info-circle"></i><span class="menu-title">셀리드</span></li>
+      <li class="nav-item"><a href="/sellide/product-manage"><span class="menu-title">상품관리</span></a></li>
+      <li class="nav-item"><a href="/sellide/order-manage"><span class="menu-title">주문관리</span></a></li>
+      <li class="nav-item"><a href="/sellide/customer-inquiry"><span class="menu-title">고객문의관리</span></a></li>
+      <li class="nav-item"><a href="/sellide/preferences"><span class="menu-title">환경설정</span></a></li>
+      <li class="navigation-header"><i class="fas fa-info-circle"></i><span class="menu-title">스카우터</span></li>
+      <li class="nav-item"><a href="#"><span class="menu-title">준비중</span></a></li>
+      <li class="nav-item"><a href="#"><span class="menu-title">준비중</span></a></li>
+    </ul>
+  </div>
+</div>

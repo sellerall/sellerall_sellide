@@ -1,0 +1,220 @@
+{{>layout/login/header}}
+
+<div class="page_login">
+  <div class="inner">
+    <div class="login">
+      <div class="title" style="width:100%;"><img src="/img/logo/sellerall_logo.png" alt=""></div>
+      <form id="infoForm" method="post" action='/api/authentications'>
+      <div class="form">
+        <div class="form-group mb-3">
+          <label for="id">아이디</label>
+          <input type="text" placeholder="아이디 입력" id="userId" name="userId" class="form-control" maxlength="12">
+        </div>
+        <div class="form-group mb-3">
+          <label for="pw">비밀번호</label>
+          <input type="password" placeholder="아이디 입력" id="userPwd" name="userPwd" class="form-control" maxlength="20">
+          <input type="hidden" name="useYn" value="Y" />
+        </div>
+   		 <div class="custom-control custom-checkbox mb-2 text-left">
+   		 <input type="checkbox" name="saveId" class="custom-control-input" >
+          <label class="custom-control-label" for="saveId">아이디 기억</label>
+          <a href="javascript:displayPassForm('1');" style="margin-left: 15px; vertical-align:top; float:right;">회원가입</a>
+       	  <a href="#" style="vertical-align:top; float:right;" disabled>아이디 · 비밀번호 찾기</a>
+        </div>
+    	
+    	<div class="form-group mb-3" align="right">
+        {{#userName}}
+            Logged in as: <span id="user">{{userName}}</span>
+            <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+        {{/userName}}
+        {{^userName}}
+            <a href="/oauth2/authorization/google" class="snsBtn" role="button" style="">
+            <img  src="/img/auth2/google_btn.png" alt="" width="50" height="50" /></a>
+            <a href="/oauth2/authorization/naver" class="snsBtn" role="button" style="">
+            <img  src="/img/auth2/naver_btn.png" alt="" width="50" height="50" /></a>
+        {{/userName}}
+        </div>
+      
+      </div>
+      </form>
+      <button class="btn btn-primary btn-lg btn-block" id="btnLogin" >로그인</button>
+    </div>
+  </div>
+  
+        <input type="hidden" name="id_chk_ok" value="0" id="id_chk_ok">
+        <input type="hidden" name="pass_chk_ok" value="0" id="pass_chk_ok">
+        <input type="hidden" name="email_chk_ok" value="0" id="email_chk_ok">
+  <!-- s 팝업 -->
+<!--      <div class="modal fade show" id="userResist" tabindex="-1" role="dialog" aria-modal="true">-->
+       <div class="modal fade show" id="passForm" tabindex="-1" role="dialog" aria-modal="true" style="z-index: 1040; padding-right: 17px; display: none;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="modal-title">사용자 등록</span>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body pb-0">
+              <div class="table table-vertical mb-4">
+                <table class="v-table">
+                  <colgroup>
+                    <col style="width: 30%;">
+                    <col style="width: 70%;">
+                  </colgroup>
+                  <tbody>
+                  <tr>
+                    <td class="text-center">아이디<i class="fas fa-check icon-check"></i></td>
+                    <td>
+                      <div class="form-group float-left">
+                        <label for="id">아이디</label>
+                        <input type="text" placeholder="" id="id" name="userId" class="form-control form-control-sm" style="width: 250px">
+                      </div>
+                      <!-- <div class="float-left">
+                        <a class="btn btn-sm btn-outline-dark btn-detail ml-2" href="#">중복체크</a>
+                      </div> -->
+                    </td>
+                  </tr>
+                  <tr style="display: none;" id="idCheckMsgBox">
+                  	<td class="text-center"></td>
+                    <td id="idCheckMsg"></td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">이름<i class="fas fa-check icon-check"></i></td>
+                    <td>
+                      <div class="form-group float-left">
+                        <label for="id">이름</label>
+                        <input type="text" placeholder="" id="userName" name="userName" class="form-control form-control-sm" style="width: 250px">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">비밀번호<i class="fas fa-check icon-check"></i></td>
+                    <td>
+                      <div class="form-group float-left">
+                        <label for="pw">비밀번호</label>
+                        <input type="password" placeholder="" id="passPwd" name="userPwd" class="form-control form-control-sm" style="width: 250px">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style="display: none;" id="passCheckMsgBox">
+                  	<td class="text-center"></td>
+                    <td id="passCheckMsg"></td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">비밀번호 확인<i class="fas fa-check icon-check"></i></td>
+                    <td>
+                      <div class="form-group">
+                        <label for="pwCheck">비밀번호</label>
+                        <input type="password" placeholder="" id="passPwdConfirm" class="form-control form-control-sm" style="width: 250px">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Email<i class="fas fa-check icon-check"></i></td>
+                    <td>
+                      <div class="form-group">
+                        <label for="desc">Email</label>
+                        <input type="text" placeholder="" id="Email" name="userEmail" class="form-control form-control-sm">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style="display: none;" id="emailCheckMsgBox">
+                  	<td class="text-center"></td>
+                    <td id="emailCheckMsg"></td>
+                  </tr>
+                  <!-- <tr>
+                    <td class="text-center">권한</td>
+                    <td class="p-2">
+                      <div class="custom-control custom-checkbox mb-2 text-left">
+                        <input type="checkbox" class="custom-control-input" id="category1" checked="">
+                        <label class="custom-control-label" for="category1">관리자권한</label>
+                      </div>
+                      <div class="custom-control custom-checkbox d-inline-block pr-2 mb-2">
+                        <input type="checkbox" class="custom-control-input" id="category2">
+                        <label class="custom-control-label" for="category2">RSR Master</label>
+                      </div>
+                      <div class="custom-control custom-checkbox d-inline-block pr-2 mb-2">
+                        <input type="checkbox" class="custom-control-input" id="category3">
+                        <label class="custom-control-label" for="category3">MC/PC Master</label>
+                      </div>
+                      <div class="custom-control custom-checkbox d-inline-block mb-2">
+                        <input type="checkbox" class="custom-control-input" id="category4">
+                        <label class="custom-control-label" for="category4">LIVE심의 MASTER</label>
+                      </div>
+                      <div class="custom-control custom-checkbox d-inline-block pr-2">
+                        <input type="checkbox" class="custom-control-input" id="category5">
+                        <label class="custom-control-label" for="category5">RSR User</label>
+                      </div>
+                      <div class="custom-control custom-checkbox d-inline-block pr-2">
+                        <input type="checkbox" class="custom-control-input" id="category6">
+                        <label class="custom-control-label" for="category6">MC/PC User</label>
+                      </div>
+                      <div class="custom-control custom-checkbox d-inline-block pr-2">
+                        <input type="checkbox" class="custom-control-input" id="category7">
+                        <label class="custom-control-label" for="category7">LIVE심의 User</label>
+                      </div>
+                    </td>
+                  </tr> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer pt-0">
+              <button type="submit" class="btn btn-primary com-modal-btn" onclick="displayPassForm('2')">회원가입</button>
+              <button type="button" class="btn btn-outline-secondary com-modal-btn" data-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- e 팝업 -->
+	<script type="text/javascript">
+	function displayPassForm(opt) {
+		if ("1" == opt) {
+			$("#passFormId").text(
+					$("#editUserId").val());
+			$("#id").val("");
+			$("#passPwd").val("");
+			$("#passPwdConfirm").val("");
+			$("#Email").val("");
+			$("#idCheckMsgBox").hide();
+			$("#passCheckMsgBox").hide();
+			$("#emailCheckMsgBox").hide();
+			$("#passForm").modal('show');
+		} else if ("2" == opt) {
+			if (pwdValidChk("pass")) {
+				$("#editPwdConfirm").val(
+						$("#passPwd").val());
+				
+				$("#passForm").modal('hide');
+			}
+		} else {
+			$("#passForm").modal('hide');
+		}
+	}
+	
+	function pwdValidChk(prefixStr){
+		var pwdVal = $("#" + prefixStr + "Pwd").val();
+		if(pwdVal ==""){
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}else if(pwdVal != $("#" + prefixStr + "PwdConfirm").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;			
+		} else {
+			var idCheckOk = $('#id_chk_ok').val();
+			var passCheckOk = $('#pass_chk_ok').val();
+			var emailCheckOk = $('#email_chk_ok').val();
+			if(idCheckOk =='1' && passCheckOk =='1' && emailCheckOk =='1') {
+				login.save();
+				return true;
+			} else {
+				alert("아이디,비밀번호,Email 을 확인 하세요");
+				return false;
+			}			
+		}	
+	}
+	</script>
+</div>
+
+{{>layout/login/footer}}

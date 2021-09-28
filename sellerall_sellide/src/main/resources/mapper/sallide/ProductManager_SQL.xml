@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sellerall.sellide.dao.StorageProductDao">
+
+	<select id="selectStorageProductList" resultType="kr.co.sellerall.sellide.dto.StorageProductDTO">
+		/* kr.co.sellerall.sellide.productManager.selectStorageProductList */
+		SELECT
+			PROD_IDX as prodIdx,
+			USER_ID as userId,
+			PARTNER_CD as partnerCd,
+			PROD_CD as prodCd,
+			PROD_NM as prodNm,
+			PROD_PRICE as prodPrice,
+			UPROD_PRICE as uProdPrice,
+			CONSUMER_PRICE as consumerPrice,
+			CONSUMER_YN as consumerYn,
+			DELI_FLAG as deliFlag,
+			DELI_PRICE as deliPrice,
+			RETURN_YN as returnYn,
+			MADE_PLACE as madePlace,
+			MAKER as maker,
+			BRAND as brand,
+			MODEL as model,
+			LIST_IMG as listImg,
+			CONTENT as content,
+			L_OPTION as lOption,
+			L_OPTION_PRICE as lOptionPrice,
+			BOX_QTY as boxQty,
+			PROD_STATUS as prodStatus,
+			ADULT_YN as adultYn,
+			TAX_YN as taxYn,
+			USE_YN as useYn,
+			AUTH_INFO1 as authInfo1,
+			AUTH_INFO2 as authInfo2,
+			AUTH_INFO3 as authInfo3,
+			CRT_DATE as crtDate,
+			CRT_NAME as crtName,
+			UPT_DATE as uptDate,
+			UPT_NAME as uptName,
+			MARGIN as margin
+		FROM
+			${tableName}
+		<where>
+			<if test="vo.prodCd != null and vo.prodCd != ''">
+				AND PROD_CD = #{vo.prodCd}
+			</if>
+			<if test="vo.partnerCd != null and vo.partnerCd != ''">
+				AND PARTNER_CD = #{vo.partnerCd}
+			</if>
+			<if test="vo.prodNm != null and vo.prodNm != ''">
+				AND PROD_NM = #{vo.prodNm}
+			</if>
+			<if test="vo.maker != null and vo.maker != ''">
+				AND MAKER = #{vo.maker}
+			</if>
+			<if test="vo.brand != null and vo.brand != ''">
+				AND BRAND = #{vo.brand}
+			</if>
+			<if test="vo.model != null and vo.model != ''">
+				AND MODEL = #{vo.model}
+			</if>
+			<if test="vo.crtName != null and vo.crtName != ''">
+				AND CRT_NAME = #{vo.crtName}
+			</if>
+			<if test="vo.prodStatus != null and vo.prodStatus != ''">
+				AND PROD_STATUS = #{vo.prodStatus}
+			</if>
+			<if test="vo.crtStartDate != null and !vo.crtStartDate.equals('') ">
+				<![CDATA[
+				AND CRT_DATE >= #{vo.crtStartDate} AND CRT_DATE <= #{vo.crtEndDate}
+				]]>
+			</if>
+			<if test="vo.uptStartDate != null and !vo.uptStartDate.equals('') ">
+				<![CDATA[
+				AND UPT_DATE >= #{vo.uptStartDate} AND UPT_DATE <= #{vo.uptEndDate}
+				]]>
+			</if>
+		</where>
+		ORDER BY
+			prod_idx ASC
+		LIMIT #{vo.startRow}, #{vo.pageSize}		
+	</select>
+	
+	<select id="selectStorageProductListTotal" resultType="int">
+		/* kr.co.sellerall.sellide.productManager.selectStorageProductListTotal */
+		SELECT 
+			count(*)
+		FROM
+			${tableName}
+	</select>
+	
+	<select id="selectOneStorageProduct" resultType="kr.co.sellerall.sellide.dto.StorageProductDTO">
+		/* kr.co.sellerall.sellide.productManager.selectStorageProductList */
+		SELECT
+			PROD_IDX,
+			USER_ID,
+			PARTNER_CD,
+			PROD_CD,
+			PROD_NM,
+			PROD_PRICE,
+			CONSUMER_PRICE,
+			CONSUMER_YN,
+			DELI_FLAG,
+			DELI_PRICE,
+			RETURN_YN,
+			MADE_PLACE,
+			MAKER,
+			BRAND,
+			MODEL,
+			LIST_IMG,
+			CONTENT,
+			L_OPTION,
+			L_OPTION_PRICE,
+			BOX_QTY,
+			PROD_STATUS,
+			ADULT_YN,
+			TAX_YN,
+			USE_YN,
+			AUTH_INFO1,
+			AUTH_INFO2,
+			AUTH_INFO3,
+			CRT_DATE,
+			CRT_NAME
+		FROM
+			${tableName}
+		where PROD_IDX = #{prodIdx}
+	</select>
+	
+	<insert id="insertStorageProduct" parameterType="kr.co.sellerall.sellide.dto.StorageProductDTO">
+		/* kr.co.sellerall.sellide.productManager.insertStorageProduct */
+		INSERT
+			INTO
+			${tableName} (
+			USER_ID,
+			PARTNER_CD,
+			PROD_CD,
+			PROD_NM,
+			CATEGORY_CD,
+			PROD_PRICE,
+			UPROD_PRICE,
+			CONSUMER_PRICE,
+			CONSUMER_YN,
+			DELI_FLAG,
+			DELI_PRICE,
+			RETURN_YN,
+			MADE_PLACE,
+			MAKER,
+			BRAND,
+			MODEL,
+			LIST_IMG,
+			CONTENT,
+			L_OPTION_CNT,
+			L_OPTION,
+			L_OPTION_PRICE,
+			BOX_QTY,
+			PROD_STATUS,
+			ADULT_YN,
+			TAX_YN,
+			USE_YN,
+			AUTH_INFO1,
+			AUTH_INFO2,
+			AUTH_INFO3,
+			CRT_DATE,
+			CRT_NAME,
+			UPT_DATE,
+			UPT_NAME,
+			DELI_AREA,
+			INVEN_TYPE,
+			INVEN_CNT,
+			MIN_ORDER_LIMIT,
+			MAX_ORDER_LIMIT,
+			RESERVES,
+			SALES_ST_DATE,
+			SALES_ED_DATE,
+			IMPO_LEVEL,
+			PRICE_OPEN,
+			DELI_TYPE,
+			DELI_PAY,
+			IMG_EN_TYPE,
+			IMG_1,
+			IMG_2,
+			IMG_3,
+			IMG_4,
+			IMG_5,
+			IMG_6,
+			MARGIN
+			)
+		VALUES(
+			#{dto.userId},
+			#{dto.partnerCd},
+			#{dto.prodCd},
+			#{dto.prodNm},
+			#{dto.categoryCd},
+			#{dto.prodPrice},
+			#{dto.uProdPrice},
+			#{dto.consumerPrice},
+			#{dto.consumerYn},
+			#{dto.deliFlag},
+			#{dto.deliPrice},
+			#{dto.returnYn},
+			#{dto.madePlace},
+			#{dto.maker},
+			#{dto.brand},
+			#{dto.model},
+			#{dto.listImg},
+			#{dto.content},
+			#{dto.lOptionCnt},
+			#{dto.lOption},
+			#{dto.lOptionPrice},
+			#{dto.boxQty},
+			#{dto.prodStatus},
+			#{dto.adultYn},
+			#{dto.taxYn},
+			#{dto.useYn},
+			#{dto.authInfo1},
+			#{dto.authInfo2},
+			#{dto.authInfo3},
+			NOW(),
+			#{dto.uptName},
+			NOW(),
+			#{dto.uptName},
+			#{dto.deliArea},
+			#{dto.invenType},
+			#{dto.invenCnt},
+			#{dto.minOrderLimit},
+			#{dto.maxOrderLimit},
+			#{dto.reserves},
+			#{dto.salesStDate},
+			#{dto.salesEdDate},
+			#{dto.impoLevel},
+			#{dto.priceOpen},
+			#{dto.deliType},
+			#{dto.deliPay},
+			#{dto.imgEnType},
+			#{dto.img1},
+			#{dto.img2},
+			#{dto.img3},
+			#{dto.img4},
+			#{dto.img5},
+			#{dto.img6},
+			#{dto.margin}
+			)
+		ON DUPLICATE KEY UPDATE
+			<if test="dto.userId != null"> USER_ID = #{dto.userId}, </if>
+            <if test="dto.partnerCd != null"> PARTNER_CD = #{dto.partnerCd}, </if>
+            <if test="dto.prodCd != null"> PROD_CD = #{dto.prodCd}, </if>
+            <if test="dto.prodNm != null"> PROD_NM = #{dto.prodNm}, </if>
+            <if test="dto.categoryCd != null"> CATEGORY_CD = #{dto.categoryCd}, </if>
+            <if test="dto.prodPrice != null"> PROD_PRICE = #{dto.prodPrice}, </if>
+            <if test="dto.uProdPrice != null"> UPROD_PRICE = #{dto.uProdPrice}, </if>
+            <if test="dto.consumerPrice != null"> CONSUMER_PRICE = #{dto.consumerPrice}, </if>
+            <if test="dto.consumerYn != null"> CONSUMER_YN = #{dto.consumerYn}, </if>
+            <if test="dto.deliFlag != null"> DELI_FLAG = #{dto.deliFlag}, </if>
+            <if test="dto.deliPrice != null"> DELI_PRICE = #{dto.deliPrice}, </if>
+            <if test="dto.returnYn != null"> RETURN_YN = #{dto.returnYn}, </if>
+            <if test="dto.madePlace != null"> MADE_PLACE = #{dto.madePlace}, </if>
+            <if test="dto.maker != null"> MAKER = #{dto.maker}, </if>
+            <if test="dto.brand != null"> BRAND = #{dto.brand}, </if>
+            <if test="dto.model != null"> MODEL = #{dto.model}, </if>
+            <if test="dto.listImg != null"> LIST_IMG = #{dto.listImg}, </if>
+            <if test="dto.content != null"> CONTENT = #{dto.content}, </if>
+            <if test="dto.lOption != null"> L_OPTION_CNT =  #{dto.lOptionCnt}, </if>
+            <if test="dto.lOption != null"> L_OPTION = #{dto.lOption}, </if>
+            <if test="dto.lOptionPrice != null"> L_OPTION_PRICE = #{dto.lOptionPrice}, </if>
+            <if test="dto.boxQty != null"> BOX_QTY = #{dto.boxQty}, </if>
+            <if test="dto.prodStatus != null"> PROD_STATUS = #{dto.prodStatus}, </if>
+            <if test="dto.adultYn != null"> ADULT_YN = #{dto.adultYn}, </if>
+            <if test="dto.taxYn != null"> TAX_YN = #{dto.taxYn}, </if>
+            <if test="dto.useYn != null"> USE_YN = #{dto.useYn}, </if>
+            <if test="dto.authInfo1 != null"> AUTH_INFO1 = #{dto.authInfo1}, </if>
+            <if test="dto.authInfo2 != null"> AUTH_INFO2 = #{dto.authInfo2}, </if>
+            <if test="dto.authInfo3 != null"> AUTH_INFO3 = #{dto.authInfo3}, </if>
+            <if test="dto.uptName != null"> UPT_NAME = #{dto.uptName}, </if>
+            <if test="dto.deliArea != null"> DELI_AREA = #{dto.deliArea}, </if>
+			<if test="dto.invenType != null"> INVEN_TYPE = #{dto.invenType}, </if>
+			<if test="dto.invenCnt != null"> INVEN_CNT = #{dto.invenCnt}, </if>
+			<if test="dto.minOrderLimit != null"> MIN_ORDER_LIMIT = #{dto.minOrderLimit}, </if>
+			<if test="dto.maxOrderLimit != null"> MAX_ORDER_LIMIT = #{dto.maxOrderLimit}, </if>
+			<if test="dto.reserves != null"> RESERVES = #{dto.reserves}, </if>
+			<if test="dto.salesStDate != null"> SALES_ST_DATE = #{dto.salesStDate}, </if>
+			<if test="dto.salesEdDate != null"> SALES_ED_DATE = #{dto.salesEdDate}, </if>
+			<if test="dto.impoLevel != null"> IMPO_LEVEL = #{dto.impoLevel}, </if>
+			<if test="dto.priceOpen != null"> PRICE_OPEN = #{dto.priceOpen}, </if>
+			<if test="dto.deliType != null"> DELI_TYPE = #{dto.deliType}, </if>
+			<if test="dto.deliPay != null"> DELI_PAY = #{dto.deliPay}, </if>
+			<if test="dto.imgEnType != null"> IMG_EN_TYPE = #{dto.imgEnType}, </if>
+			<if test="dto.img1 != null"> IMG_1 = #{dto.img1}, </if>
+			<if test="dto.img2 != null"> IMG_2 = #{dto.img2}, </if>
+			<if test="dto.img1 != null"> IMG_3 = #{dto.img3}, </if>
+			<if test="dto.img2 != null"> IMG_4 = #{dto.img4}, </if>
+			<if test="dto.img1 != null"> IMG_5 = #{dto.img5}, </if>
+			<if test="dto.img1 != null"> IMG_6 = #{dto.img6}, </if>
+			<if test="dto.margin != null"> MARGIN = #{dto.margin}, </if>
+			UPT_DATE = NOW();
+	</insert>
+	
+	<!-- <delete id="deleteStorageProduct" >
+		/* kr.co.sellerall.sellide.productManager.deleteStorageProduct */
+		DELETE
+		FROM
+			${tableName}
+		WHERE
+			prod_idx = #{prodIdx};
+	</delete> -->
+	
+</mapper>

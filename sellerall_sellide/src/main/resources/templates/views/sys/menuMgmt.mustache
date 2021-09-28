@@ -1,0 +1,292 @@
+{{>layout/sellide/header}}
+{{>layout/sellide/aside}}
+
+  <!-- S content -->
+  <div class="contents">
+    <div class="page-content">
+      <div class="title-content">메뉴 관리</div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">시스템관리</a></li>
+          <li class="breadcrumb-item active" aria-current="page">메뉴 관리</li>
+        </ol>
+      </nav>
+
+
+      <div class="card-shadow mb-5"> <!-- card-shadow mb-5 클래스 추가 -- 2020.11.13 -->
+        <div class="info-box mb-3">
+          <div class="info">
+            <span>● 메뉴 관리</span>
+          </div>
+        </div>
+
+        <div class="scroll-wrap">
+          <div class="scroll">
+            <table class="centered table" id="sortTable">
+              <colgroup>
+                <col style="width:10%">
+                <col style="width:20%">
+                <col style="width:45px">
+                <col style="width:120px">
+                <col style="width:10%">
+                <col style="width:100px">
+              </colgroup>
+              <thead>
+              <tr>
+                <th style="width: 139px"><span class="order-false">메뉴명</span></th>
+                <th style="width: 277px"><span class="order-false">URL</span></th>
+                <th style="width: 66px"><span class="order-false">사용여부</span></th>
+                <th style="width: 176px"><span class="order-false">수정일</span></th>
+                <th style="width: 138px"><span class="order-false">수정자</span></th>
+                <th style="width: 147px"><span>정렬</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="depth_first">
+                <td><a href="#" class="color-link">시스템관리</a></td>
+                <td></td>
+                <td>Y</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>3</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">사용자관리</a></td>
+                <td></td>
+                <td>Y</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>3</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">메뉴관리</a></td>
+                <td></td>
+                <td>N</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>2</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>Y</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>1</td>
+              </tr>
+              <tr class="depth_first">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>Y</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>2</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>Y</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>3</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>Y</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>2</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>N</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>1</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>N</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>2</td>
+              </tr>
+              <tr class="depth_second">
+                <td><a href="#" class="color-link">코드관리</a></td>
+                <td></td>
+                <td>N</td>
+                <td>2020.10.19</td>
+                <td>konan1</td>
+                <td>1</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <script>
+          $(function() {
+            $("#sortTable").tablesorter({
+              headers : {
+                '.order-false' : {
+                  sorter : false
+                }
+              },
+            });
+          });
+        </script>
+        <!-- s 조회된 내용이 없을 경우 -- 2020.11.23  -->
+        <table class="centered table mt-5">
+          <colgroup>
+            <col style="width:70px">
+            <col style="width:100px">
+            <col style="width:45px">
+            <col style="width:90px">
+            <col style="width:15%">
+            <col style="width:100px">
+            <col style="width:70px">
+            <col style="width:85px">
+            <col style="width:80px">
+          </colgroup>
+          <thead>
+          <tr>
+            <th>메뉴 번호</th>
+            <th>상위 메뉴명</th>
+            <th>정렬</th>
+            <th>메뉴명</th>
+            <th>URL</th>
+            <th>권한</th>
+            <th>사용여부</th>
+            <th>수정일</th>
+            <th>수정자</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="empty">
+            <td colspan="9">조회된 내용이 없습니다.</td>
+          </tr>
+          </tbody>
+        </table>
+        <!-- e 조회된 내용이 없을 경우 -- 2020.11.23 -->
+
+        <div class="info-box my-3">
+          <div class="info">
+            <span>● 메뉴 추가</span>
+          </div>
+          <p class="badge-list">
+            <span class="badge badge-pill badge-primary">Engine 1 : v 1</span>
+            <span class="badge badge-pill badge-secondary">Engine 2 : v 1</span>
+            <span class="badge badge-pill badge-error">Engine 2 : 에러 상황 클래스 badge-error</span>
+          </p>
+        </div>
+        <div class="box-grey no-bullet mb-1">
+          <div class="row mb-2">
+            <div class="col col-12">
+              <div class="col-title">메뉴 번호</div>
+              <div class="col-desc" style="width: 300px">1</div>
+              <div class="col-title">상위메뉴명</div>
+              <div class="col-desc" style="width: 300px">
+                <div class="input-group d-inline-block" style="width: 100px">
+                  <select class="custom-select custom-select-sm" title="">
+                    <option selected="">전체</option>
+                    <option>전체</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col col-12">
+              <div class="col-title">정렬</div>
+              <div class="col-desc" style="width: 300px">
+                <input type="text" class="form-control form-control-sm" title="text" placeholder=""
+                       style="width: 100px">
+              </div>
+              <div class="col-title">사용여부</div>
+              <div class="col-desc" style="width: 300px">
+                <div class="input-group d-inline-block" style="width:100px">
+                  <select class="custom-select custom-select-sm" title="">
+                    <option selected="">Y</option>
+                    <option>N</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col col-12">
+              <div class="col-title">권한</div>
+              <div class="col-desc">
+                <div>
+                  <div class="custom-control custom-checkbox text-left">
+                    <input type="checkbox" class="custom-control-input" id="category1" checked="">
+                    <label class="custom-control-label" for="category1">관리자권한</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="custom-control custom-checkbox d-inline-block pr-2">
+                    <input type="checkbox" class="custom-control-input" id="category2">
+                    <label class="custom-control-label" for="category2">RSR Master</label>
+                  </div>
+                  <div class="custom-control custom-checkbox d-inline-block pr-2">
+                    <input type="checkbox" class="custom-control-input" id="category3">
+                    <label class="custom-control-label" for="category3">MC/PC Master</label>
+                  </div>
+                  <div class="custom-control custom-checkbox d-inline-block">
+                    <input type="checkbox" class="custom-control-input" id="category4">
+                    <label class="custom-control-label" for="category4">LIVE심의 MASTER</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="custom-control custom-checkbox d-inline-block pr-2">
+                    <input type="checkbox" class="custom-control-input" id="category5">
+                    <label class="custom-control-label" for="category5">RSR User</label>
+                  </div>
+                  <div class="custom-control custom-checkbox d-inline-block pr-2">
+                    <input type="checkbox" class="custom-control-input" id="category6">
+                    <label class="custom-control-label" for="category6">MC/PC User</label>
+                  </div>
+                  <div class="custom-control custom-checkbox d-inline-block pr-2">
+                    <input type="checkbox" class="custom-control-input" id="category7">
+                    <label class="custom-control-label" for="category7">LIVE심의 User</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col col-12">
+              <div class="col-title">메뉴명</div>
+              <div class="col-desc">
+                <input type="text" class="form-control form-control-sm" title="text" placeholder=""
+                       style="width: 300px">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-12">
+              <div class="col-title">URL</div>
+              <div class="col-desc">
+                <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+              </div>
+            </div>
+          </div>
+        </div> <!-- mb-1 클래스 변경 -- 2020.11.13 -->
+        <!-- s 버튼 영역 -->
+        <div class="info-box mt-1"> <!-- mb-5 클래스 제거 -- 2020.11.13 -->
+          <div class="wrap-btn">
+            <a class="btn btn-outline-dark" href="#">추가</a>
+            <a class="btn btn-outline-dark" href="#">삭제</a>
+            <a class="btn btn-primary" href="#">적용</a>
+          </div>
+        </div>
+        <!-- e 버튼 영역 -->
+      </div>
+
+
+
+    </div>
+  
+{{>layout/sellide/footer}}

@@ -1,0 +1,41 @@
+<template>
+	<footer>
+		<div class="footer">
+			<ul class="t-info">
+			<li><a href="#">회사소개</a></li>
+			<li><a href="#">이용약관</a></li>
+			<li><a href="#">개인정보 처리방침</a></li>
+			</ul>
+			<div class="box">
+			<ul class="c-info">
+				<li>
+				<span class="bar">대표이사 : 권윤상</span>
+				<span class="bar">주소 : 서울시 강서구 마곡중앙6로 42 사이언스타 1004호</span>
+				</li>
+				<li>
+				<span class="bar">Tel : <a href="tel:1899-4455">070-7585-8577</a></span>
+				<span class="bar">Fax : <a href="tel:02-393-6093">070-7585-8578</a></span>
+				<span class="email">Email : <a href="gsshop@gsshop.com/">dante@fromtodaycorp.com</a></span>
+				</li>
+				<li class="mb-2">
+				<!--
+				<span class="bar">사업자등록번호 : xxx-xx-xxxxx</span>
+				<span class="text-lg">통신판매업신고 : 강서구청 제 xxxx-xxxxx호</span>
+				-->
+				</li>
+				<li>
+				<span class="desc text-lg">COPYRIGHT INFORMATION GOES HERE © 2021. ALL RIGHTS RESERVED.</span>
+				</li>
+			</ul>
+			</div>
+		</div>
+	</footer>
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style>
+</style>
