@@ -1,0 +1,2 @@
+.v-enter-active[data-v-5377bc10],.v-leave-active[data-v-5377bc10]{-webkit-transition:opacity 1s,-webkit-transform 1s;transition:opacity 1s,-webkit-transform 1s;transition:opacity 1s,transform 1s;transition:opacity 1s,transform 1s,-webkit-transform 1s}.v-enter[data-v-5377bc10]{opacity:0;-webkit-transform:translateX(-10px);transform:translateX(-10px)}.v-leave-to[data-v-5377bc10]{opacity:0;-webkit-transform:translateY(10px);transform:translateY(10px)}
+/*# sourceMappingURL=app.c24e1deebc72cb2e27d1b6b24a649a41.css.map */

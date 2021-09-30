@@ -1,0 +1,404 @@
+{{>layout/sellide/header}}
+{{>layout/sellide/aside}}
+  <!-- S content -->
+  <div class="contents">
+    <div class="page-content">
+      <div class="title-content">사용자 목록</div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">시스템관리</a></li>
+          <li class="breadcrumb-item active" aria-current="page">사용자 관리</li>
+        </ol>
+      </nav>
+
+      <div class="card-shadow mb-5"> <!-- card-shadow 클래스 추가 -- 2020.11.13 -->
+        <div class="info-box mb-3">
+          <div class="info">
+            <span>● 사용자 관리</span>
+          </div>
+          <div class="wrap-btn">
+            <div class="input-group">
+              <select class="custom-select custom-select-sm" title="">
+                <option selected="">전체</option>
+                <option>1</option>
+                <option>2</option>
+              </select>
+            </div>
+            <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+            <a class="btn btn-outline-dark" href="#">검색</a>
+          </div>
+        </div>
+        <!-- s 테이블 -->
+        <div class="user-wrap">
+          <div class="scroll">
+            <table class="centered table">
+              <colgroup>
+                <col style="width:120px">
+                <col style="width:20%">
+                <col style="width:100px">
+                <col style="width:120px">
+              </colgroup>
+              <thead>
+              <tr>
+                <th style="width:214px">아이디</th>
+                <th style="width:337px">설명</th>
+                <th style="width:178px">사용여부</th>
+                <th style="width:214px">권한</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              <tr>
+                <td>admin</td>
+                <td></td>
+                <td>Y</td>
+                <td>관리자</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- e 테이블 -->
+        <!-- s 버튼 영역 -->
+        <div class="info-box mb-0">
+          <div class="wrap-btn">
+            <a class="btn btn-outline-dark" href="#">사용자 추가</a>
+            <a class="btn btn-outline-dark" href="#">비밀번호 변경</a>
+          </div>
+        </div>
+        <!-- e 버튼 영역 -->
+      </div>
+
+      <div class="box-grey box-grey-sm no-bullet mb-5">
+        <div class="info-box mb-3">
+          <div class="info">
+            <span>● 사용자 등록</span>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col col-12">
+            <div class="col-title">아이디<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 450px">
+              <input type="text" class="form-control form-control-sm d-inline-block" title="text" placeholder=""
+                     style="width: 150px">
+              <a class="btn btn-sm btn-outline-dark d-inline-block" href="#">중복 체크</a>
+              <span class="color-skyblue d-inline-block ml-2">*사용 가능한 아이디입니다.</span>
+            </div>
+            <div class="col-title">설명</div>
+            <div class="col-desc" style="width: 300px">
+              <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col col-12">
+            <div class="col-title">비밀번호<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 450px">
+              <input type="password" class="form-control form-control-sm" title="text" placeholder=""
+                     style="width:300px">
+            </div>
+            <div class="col-title">비밀번호 변경<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 300px">
+              <input type="password" class="form-control form-control-sm" title="text" placeholder=""
+                     style="width:300px">
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col col-12">
+            <div class="col-title">관리자 여부<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 450px">
+              <div class="radio-wrap">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="yes" name="Radio" class="custom-control-input">
+                  <label class="custom-control-label" for="yes">Y</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="no" name="Radio" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="no">E</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-title">사용 여부<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 300px">
+              <div class="radio-wrap">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="yes2" name="usage" class="custom-control-input">
+                  <label class="custom-control-label" for="yes2">Y</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="no2" name="usage" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="no2">E</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-12">
+            <div class="col-title">사용자 권한<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc">
+              <table class="centered table no-padding">
+                <colgroup>
+                  <col style="width:33.333%">
+                  <col style="width:33.333%">
+                  <col style="width:33.333%">
+                </colgroup>
+                <thead>
+                <tr>
+                  <th>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="category1" checked="">
+                      <label class="custom-control-label" for="category1">RISK SENSING REPORT</label>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="custom-control custom-checkbox d-inline-block pr-2">
+                      <input type="checkbox" class="custom-control-input" id="category2">
+                      <label class="custom-control-label" for="category2">MC/PC심의</label>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="custom-control custom-checkbox d-inline-block pr-2">
+                      <input type="checkbox" class="custom-control-input" id="category3">
+                      <label class="custom-control-label" for="category3">LIVE 심의</label>
+                    </div>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="master1" name="group1" class="custom-control-input">
+                        <label class="custom-control-label" for="master1">MASTER</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="user1" name="group1" class="custom-control-input" checked="">
+                        <label class="custom-control-label" for="user1">USER</label>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="radio-wrap">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="master2" name="group2" class="custom-control-input">
+                        <label class="custom-control-label" for="master2">MASTER</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="user2" name="group2" class="custom-control-input" checked="">
+                        <label class="custom-control-label" for="user2">USER</label>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="radio-wrap">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="master3" name="group3" class="custom-control-input">
+                        <label class="custom-control-label" for="master3">MASTER</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="user3" name="group3" class="custom-control-input" checked="">
+                        <label class="custom-control-label" for="user3">USER</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="info-box mb-0">
+          <div class="wrap-btn">
+            <a class="btn btn-outline-dark" href="#">적용</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-grey box-grey-sm no-bullet mb-1">
+        <div class="info-box mb-3">
+          <div class="info">
+            <span>● 사용자 수정</span>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col col-12">
+            <div class="col-title">아이디<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 450px">MCPC3</div>
+            <div class="col-title">설명</div>
+            <div class="col-desc" style="width: 300px">
+              <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col col-12">
+            <div class="col-title">관리자 여부<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 450px">
+              <div class="radio-wrap">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="yes3" name="admin" class="custom-control-input">
+                  <label class="custom-control-label" for="yes3">Y</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="no3" name="admin" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="no3">E</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-title">사용 여부<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc" style="width: 300px">
+              <div class="radio-wrap">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="yes4" name="usage2" class="custom-control-input">
+                  <label class="custom-control-label" for="yes4">Y</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="no4" name="usage2" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="no4">E</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-12">
+            <div class="col-title">사용자 권한<i class="fas fa-check icon-check"></i></div>
+            <div class="col-desc">
+              <table class="centered table no-padding">
+                <colgroup>
+                  <col style="width:33.333%">
+                  <col style="width:33.333%">
+                  <col style="width:33.333%">
+                </colgroup>
+                <thead>
+                <tr>
+                  <th>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="category4" checked="">
+                      <label class="custom-control-label" for="category4">RISK SENSING REPORT</label>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="custom-control custom-checkbox d-inline-block pr-2">
+                      <input type="checkbox" class="custom-control-input" id="category5">
+                      <label class="custom-control-label" for="category5">MC/PC심의</label>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="custom-control custom-checkbox d-inline-block pr-2">
+                      <input type="checkbox" class="custom-control-input" id="category6">
+                      <label class="custom-control-label" for="category6">LIVE 심의</label>
+                    </div>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="master8" name="group4" class="custom-control-input">
+                        <label class="custom-control-label" for="master8">MASTER</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="user8" name="group4" class="custom-control-input" checked="">
+                        <label class="custom-control-label" for="user8">USER</label>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="radio-wrap">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="master9" name="group5" class="custom-control-input">
+                        <label class="custom-control-label" for="master9">MASTER</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="user9" name="group5" class="custom-control-input" checked="">
+                        <label class="custom-control-label" for="user9">USER</label>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="radio-wrap">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="master10" name="group6" class="custom-control-input">
+                        <label class="custom-control-label" for="master10">MASTER</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="user10" name="group6" class="custom-control-input" checked="">
+                        <label class="custom-control-label" for="user10">USER</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="info-box mb-0">
+          <div class="wrap-btn">
+            <a class="btn btn-outline-dark" href="#">적용</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+   
+{{>layout/sellide/footer}}

@@ -1,0 +1,7 @@
+spring.jpa.hibernate.ddl-auto=none
+spring.datasource.hikari.jdbc-url=jdbc:mysql://116.120.58.72:3306/sellerall?serverTimezone=Asia/Seoul 
+
+spring.datasource.username=sellerall
+spring.datasource.password=elepdl14154
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+

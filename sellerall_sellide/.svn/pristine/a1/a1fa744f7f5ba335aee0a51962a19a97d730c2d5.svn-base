@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources-prd=UTF-8
+encoding//src/main/resources/templates/error/closedSession.mustache=UTF-8
+encoding//src/main/resources/templates/error/defalutError.mustache=UTF-8
+encoding//src/main/resources/templates/layout/loading.mustache=UTF-8
+encoding//src/main/resources/templates/views/login/login.mustache=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

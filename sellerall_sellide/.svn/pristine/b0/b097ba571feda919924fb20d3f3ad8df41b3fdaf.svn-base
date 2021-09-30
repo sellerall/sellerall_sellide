@@ -1,0 +1,15 @@
+<!-- 로딩 화면 -->
+<div id="loading" class="loading_wrap" style="display: none;">
+	<div class="lds-box">
+		<div class="lds-roller">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+</div>
