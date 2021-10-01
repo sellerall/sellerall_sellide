@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - java8
+
+# Travis CI 서버의 Home
+
+
+# CI 실행 완료시 메일로 알람 test3sad
+notifications:
+  email:
+    recipients:
+      - sellerall0401@gmail.com
