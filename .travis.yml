@@ -2,10 +2,6 @@ language: java
 jdk:
   - java8
 
-branches:
-  only:
-    - main
-
 # Travis CI 서버의 Home
 
 
