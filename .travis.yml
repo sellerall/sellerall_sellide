@@ -5,7 +5,7 @@ jdk:
 # Travis CI 서버의 Home
 
 
-# CI 실행 완료시 메일로 알람 test
+# CI 실행 완료시 메일로 알람 test3
 notifications:
   email:
     recipients:
