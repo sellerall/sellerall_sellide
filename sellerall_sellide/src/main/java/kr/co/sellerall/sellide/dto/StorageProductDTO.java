@@ -16,10 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StorageProductDTO{
 	private String prodIdx;			/* 사용자상품index (auto_increment) */
-	//
-	private String editCd;
-	private String LinkCd;
-	//
+	private String editCd;			/* 네이버 수정 코드*/
+	private String linkCd;			/* 네이버 상품 등록 코드*/
 	private String userId;			/* 사용자 ID */	
 	private String partnerCd;		/* 거래처코드 */			/*( 필수) */	
 	private String prodCd;			/* 상품코드 */				/*( 필수) */
@@ -80,9 +78,9 @@ public class StorageProductDTO{
 	private String authInfo1; 		/* 인증정보1 */
 	private String authInfo2; 		/* 인증정보2(상품속성 - 1:건강식품, 2:의료용품, 3:해외직배송, 4:해외직구, 5:유통금지상품) */
 	private String authInfo3; 		/* 인증정보3 */
-	private LocalDateTime crtDate; 		/* 등록일 */
+	private LocalDateTime crtDate; 	/* 등록일 */
 	private String crtName; 		/* 등록아이디 */
-	private LocalDateTime uptDate; 		/* 수정일 */
+	private LocalDateTime uptDate; 	/* 수정일 */
 	private String uptName; 		/* 수정아이디 */
 	private String shExplan;		/* 짧은설명 */
 	private String asFlag; 			/* A/S가능여부	*/
@@ -118,10 +116,10 @@ public class StorageProductDTO{
 	    		this.prodIdx = product.getProdIdx();	/* 사용자상품index (auto_increment) */
 	    	}
 			this.userId = product.getUserId();			/* 사용자 ID */
-			this.partnerCd = product.getPartnerCd();		/* 거래처코드 */			/*( 필수) */
+			this.partnerCd = product.getPartnerCd();	/* 거래처코드 */			/*( 필수) */
 			this.prodCd = product.getProdCd();			/* 상품코드 */				/*( 필수) */
 			this.prodNm = product.getProdNm();			/* 상품명 */				/*( 필수) */
-			this.uprodNm = product.getUprodNm();			/* 사용자수정상품명 */
+			this.uprodNm = product.getUprodNm();		/* 사용자수정상품명 */
 			this.wdmCd = product.getWdmCd();			/* 왕도매 카테고리 코드 */
 			this.gmkCd = product.getGmkCd();			/* g마켓 카테고리 코드 */
 			this.aucCd = product.getAucCd(); 			/* 옥션 카테고리 코드 */
@@ -130,80 +128,80 @@ public class StorageProductDTO{
 		    this.stpCd = product.getStpCd(); 			/* 스토어팜 카테고리 코드 */
 		    this.couCd = product.getCouCd(); 			/* 쿠팡 카테고리 코드 */
 		    this.prodPrice = product.getProdPrice(); 			/* 상품가격 */
-		    this.uProdPrice = product.getUProdPrice(); 		/* 사용자상품가격 */
-		    this.uSalePrice = product.getUSalePrice(); 		/* 사용자판매가격 */
-		    this.consumerPrice = product.getConsumerPrice(); 		/* 소비자가격 */
+		    this.uProdPrice = product.getUProdPrice(); 			/* 사용자상품가격 */
+		    this.uSalePrice = product.getUSalePrice(); 			/* 사용자판매가격 */
+		    this.consumerPrice = product.getConsumerPrice(); 	/* 소비자가격 */
 		    this.uConsumerPrice = product.getUConsumerPrice(); 	/* 사용자소비자가격 */
-		    this.consumerYn = product.getConsumerYn(); 		/* 가격자율여부(y:준수, n:자율) */
-		    this.deliFlag = product.getDeliFlag(); 		/* 배송구분(h:선/착불, f:무료, g:착불, s:선불) */
-		    this.uDeliFlag = product.getUDeliFlag(); 		/* 사용자배송구분(h:선/착불, f:무료, g:착불, s:선불) */
-		    this.deliPrice = product.getDeliPrice(); 		/* 배송비 */
-		    this.udeliPrice = product.getUdeliPrice(); 		/* 사용자배송비 */
-		    this.returnYn = product.getReturnYn(); 		/* 반품여부 */
-		    this.ureturnYn = product.getUreturnYn(); 		/* 사용자반품여부 */
-		    this.ureturnPrice = product.getUreturnPrice(); 	/* 사용자반품배송비 */
-		    this.ureturnPlace = product.getUreturnPlace(); 	/* 사용자반품배송지코드(오너클랜제공) */
-		    this.madePlace = product.getMadePlace(); 		/* 원산지 */
-		    this.umadePlace = product.getUmadePlace(); 		/* 사용자원산지 */
-		    this.maker = product.getMaker(); 			/* 제조사 */
-		    this.brand = product.getBrand(); 			/* 브랜드 */
-		    this.ubrand = product.getUbrand(); 			/* 사용자브랜드 */
-		    this.model = product.getModel(); 			/* 모델명 */
-		    this.listImg = product.getListImg(); 		/* 리스트이미지 */
-		    this.uListImg = product.getUListImg(); 		/* 사용자리스트이미지 */
-		    this.content = product.getContent(); 		/* 상세설명 */
-		    this.uContent = product.getUContent(); 		/* 사용자상세설명 */
-		    this.uIntro = product.getUIntro(); 			/* 사용자상단설명 */
-		    this.lOptionCnt = product.getLOptionCnt(); 		/* 옵션개수 */
-		    this.lOption = product.getLOption(); 		/* 옵션 */
-		    this.ulOption = product.getUlOption(); 		/* 사용자옵션 */
-		    this.lOptionPrice = product.getLOptionPrice(); 	/* 옵션가격 */
+		    this.consumerYn = product.getConsumerYn(); 			/* 가격자율여부(y:준수, n:자율) */
+		    this.deliFlag = product.getDeliFlag(); 				/* 배송구분(h:선/착불, f:무료, g:착불, s:선불) */
+		    this.uDeliFlag = product.getUDeliFlag(); 			/* 사용자배송구분(h:선/착불, f:무료, g:착불, s:선불) */
+		    this.deliPrice = product.getDeliPrice(); 			/* 배송비 */
+		    this.udeliPrice = product.getUdeliPrice(); 			/* 사용자배송비 */
+		    this.returnYn = product.getReturnYn(); 				/* 반품여부 */
+		    this.ureturnYn = product.getUreturnYn(); 			/* 사용자반품여부 */
+		    this.ureturnPrice = product.getUreturnPrice(); 		/* 사용자반품배송비 */
+		    this.ureturnPlace = product.getUreturnPlace(); 		/* 사용자반품배송지코드(오너클랜제공) */
+		    this.madePlace = product.getMadePlace(); 			/* 원산지 */
+		    this.umadePlace = product.getUmadePlace(); 			/* 사용자원산지 */
+		    this.maker = product.getMaker(); 					/* 제조사 */
+		    this.brand = product.getBrand(); 					/* 브랜드 */
+		    this.ubrand = product.getUbrand(); 					/* 사용자브랜드 */
+		    this.model = product.getModel(); 					/* 모델명 */
+		    this.listImg = product.getListImg(); 				/* 리스트이미지 */
+		    this.uListImg = product.getUListImg(); 				/* 사용자리스트이미지 */
+		    this.content = product.getContent(); 				/* 상세설명 */
+		    this.uContent = product.getUContent(); 				/* 사용자상세설명 */
+		    this.uIntro = product.getUIntro(); 					/* 사용자상단설명 */
+		    this.lOptionCnt = product.getLOptionCnt(); 			/* 옵션개수 */
+		    this.lOption = product.getLOption(); 				/* 옵션 */
+		    this.ulOption = product.getUlOption(); 				/* 사용자옵션 */
+		    this.lOptionPrice = product.getLOptionPrice(); 		/* 옵션가격 */
 		    this.ulOptionPrice = product.getUlOptionPrice(); 	/* 사용자옵션가격 */
-		    this.boxQty = product.getBoxQty(); 			/* 묶음수량 */
-		    this.uBoxQty = product.getUBoxQty(); 			/* 사용자묶음수량 */
-		    this.uKeyword = product.getUKeyword(); 		/* 사용자키워드 */
-		    this.prodStatus = product.getProdStatus(); 		/* 상품상태(1:정상, 8:품절) */	/*( 필수) */
-		    this.adultYn = product.getAdultYn(); 		/* 성인용품여부 */
-		    this.uAdultYn = product.getUAdultYn(); 		/* 사용자성인용품여부 */
-		    this.taxYn = product.getTaxYn(); 			/* 과세여부 */					/*( 필수) */
-		    this.useYn = product.getUseYn(); 			/* 사용여부 */					/*( 필수) */
-		    this.authInfo1 = product.getAuthInfo1(); 		/* 인증정보1 */
-		    this.authInfo2 = product.getAuthInfo2(); 		/* 인증정보2(상품속성 - 1:건강식품, 2:의료용품, 3:해외직배송, 4:해외직구, 5:유통금지상품) */
-		    this.authInfo3 = product.getAuthInfo3(); 		/* 인증정보3 */
-		    this.crtName = user.getEmail(); 		/* 등록아이디 */
-		    this.uptName = user.getEmail(); 		/* 수정아이디 */
-		    this.categoryCd = product.getCategoryCd();		/* 카테고리 코드 */											/*( 필수) */
+		    this.boxQty = product.getBoxQty(); 					/* 묶음수량 */
+		    this.uBoxQty = product.getUBoxQty(); 				/* 사용자묶음수량 */
+		    this.uKeyword = product.getUKeyword(); 				/* 사용자키워드 */
+		    this.prodStatus = product.getProdStatus(); 			/* 상품상태(1:정상, 8:품절) */	/*( 필수) */
+		    this.adultYn = product.getAdultYn(); 				/* 성인용품여부 */
+		    this.uAdultYn = product.getUAdultYn(); 				/* 사용자성인용품여부 */
+		    this.taxYn = product.getTaxYn(); 					/* 과세여부 */					/*( 필수) */
+		    this.useYn = product.getUseYn(); 					/* 사용여부 */					/*( 필수) */
+		    this.authInfo1 = product.getAuthInfo1(); 			/* 인증정보1 */
+		    this.authInfo2 = product.getAuthInfo2(); 			/* 인증정보2(상품속성 - 1:건강식품, 2:의료용품, 3:해외직배송, 4:해외직구, 5:유통금지상품) */
+		    this.authInfo3 = product.getAuthInfo3(); 			/* 인증정보3 */
+		    this.crtName = user.getEmail(); 					/* 등록아이디 */
+		    this.uptName = user.getEmail(); 					/* 수정아이디 */
+		    this.categoryCd = product.getCategoryCd();			/* 카테고리 코드 */				/*( 필수) */
 			this.categoryLCd = product.getCategoryLCd();		/* 카테고리대 코드 */	
 			this.categoryLNm = product.getCategoryLNm();		/* 카테고리대 명 */	
 			this.categoryMCd = product.getCategoryMCd();		/* 카테고리중 코드 */	
 			this.categoryMNm = product.getCategoryMNm();		/* 카테고리중 명 */	
 			this.categorySCd = product.getCategorySCd();		/* 카테고리소 코드 */
 			this.categorySNm = product.getCategorySNm();		/* 카테고리소 명 */
-			this.shExplan = product.getShExplan();		/* 짧은설명 */
-			this.asFlag = product.getAsFlag(); 			/* A/S가능여부	*/
-		    this.deliArea = product.getDeliArea(); 		/* 배송가능지역 */											/*( 필수) */
+			this.shExplan = product.getShExplan();				/* 짧은설명 */
+			this.asFlag = product.getAsFlag(); 					/* A/S가능여부	*/
+		    this.deliArea = product.getDeliArea(); 				/* 배송가능지역 */											/*( 필수) */
 		    this.deliAreaExplan = product.getDeliAreaExplan(); 	/* 배송가능지역추가설명  */
-		    this.priceSub = product.getPriceSub(); 		/* 가격대체문구	*/
-		    this.invenType = product.getInvenType(); 		/* 재고적용타입(0:무제한, 1:한정) */						/*( 필수) */
-		    this.invenCnt = product.getInvenCnt(); 			/* 재고수량 */
-		    this.invenNtCnt = product.getInvenNtCnt(); 		/* 재고통보수량 */
-		    this.minOrderLimit = product.getMinOrderLimit(); 		/* 최소주문한도 */
-		    this.maxOrderLimit = product.getMaxOrderLimit(); 		/* 최대주문한도 */
-		    this.reserves = product.getReserves(); 		/* 적립금 */
-		    this.salesStDate = product.getSalesStDate(); 	/* 판매기간 시작일 (YYYY-MM-DD) */
-		    this.salesEdDate = product.getSalesEdDate(); 	/* 판매기간 종료일 (YYYY-MM-DD) */
-		    this.impoLevel = product.getImpoLevel(); 		/* 구매가능레벨 (10:제한없음, 9:일반회원, 8:우수회원, 7:특별회원, 6~2:가맹점)*/	/*( 필수) */
-		    this.priceOpen = product.getPriceOpen(); 		/* 가격공개(0:사용안함, 1:사용함) */							/*( 필수) */
-		    this.deliType = product.getDeliType(); 		/* 배송비유형 (0:공통설정, 1:무료배송, 2:조건부무료배송, 3:유료배송) */	/*( 필수) */
-		    this.deliPay = product.getDeliPay(); 		/* 배송비결제 (0: 선불, 1:착불) */								/*( 필수) */
-		    this.imgEnType = product.getImgEnType(); 		/* 이미지등록방식(0:직접 업로드, 1:URL 입력) */					/*( 필수) */
-		    this.img1 = product.getImg1(); 			/* 이미지1 */												/*( 필수) */
-		    this.img2 = product.getImg2(); 			/* 이미지2 */												/*( 필수) */
-		    this.img3 = product.getImg3(); 			/* 이미지3 */
-		    this.img4 = product.getImg4(); 			/* 이미지4 */
-		    this.img5 = product.getImg5(); 			/* 이미지5 */
-		    this.img6 = product.getImg6(); 			/* 이미지6 */
-		    this.adminMemo = product.getAdminMemo(); 		/* 관리자메모 */
+		    this.priceSub = product.getPriceSub(); 				/* 가격대체문구	*/
+		    this.invenType = product.getInvenType(); 			/* 재고적용타입(0:무제한, 1:한정) */							/*( 필수) */
+		    this.invenCnt = product.getInvenCnt(); 				/* 재고수량 */
+		    this.invenNtCnt = product.getInvenNtCnt(); 			/* 재고통보수량 */
+		    this.minOrderLimit = product.getMinOrderLimit(); 	/* 최소주문한도 */
+		    this.maxOrderLimit = product.getMaxOrderLimit(); 	/* 최대주문한도 */
+		    this.reserves = product.getReserves(); 				/* 적립금 */
+		    this.salesStDate = product.getSalesStDate(); 		/* 판매기간 시작일 (YYYY-MM-DD) */
+		    this.salesEdDate = product.getSalesEdDate(); 		/* 판매기간 종료일 (YYYY-MM-DD) */
+		    this.impoLevel = product.getImpoLevel(); 			/* 구매가능레벨 (10:제한없음, 9:일반회원, 8:우수회원, 7:특별회원, 6~2:가맹점)*/	/*( 필수) */
+		    this.priceOpen = product.getPriceOpen(); 			/* 가격공개(0:사용안함, 1:사용함) */										/*( 필수) */
+		    this.deliType = product.getDeliType(); 				/* 배송비유형 (0:공통설정, 1:무료배송, 2:조건부무료배송, 3:유료배송) */			/*( 필수) */
+		    this.deliPay = product.getDeliPay(); 				/* 배송비결제 (0: 선불, 1:착불) */										/*( 필수) */
+		    this.imgEnType = product.getImgEnType(); 			/* 이미지등록방식(0:직접 업로드, 1:URL 입력) */								/*( 필수) */
+		    this.img1 = product.getImg1(); 						/* 이미지1 */															/*( 필수) */
+		    this.img2 = product.getImg2(); 						/* 이미지2 */															/*( 필수) */
+		    this.img3 = product.getImg3(); 						/* 이미지3 */
+		    this.img4 = product.getImg4(); 						/* 이미지4 */
+		    this.img5 = product.getImg5(); 						/* 이미지5 */
+		    this.img6 = product.getImg6(); 						/* 이미지6 */
+		    this.adminMemo = product.getAdminMemo(); 			/* 관리자메모 */
 		}
 		
 		if(param != null) {

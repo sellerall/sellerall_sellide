@@ -406,7 +406,7 @@
               <thead>
               <tr>
                 <th>선택</th>
-                <th>알림</th>
+                <th>등록코드</th>
                 <th>보관 상품코드</th>
                 <th>고객사 상품코드</th>
                 <th>카테고리</th>
@@ -427,7 +427,7 @@
                     <label class="custom-control-label"></label>
                   </div>
                 </td>
-                <td>{{storageProduct.prodIdx}}</td>
+                <td><a :href="`http://smartstore.naver.com/manhwasuper/products/${storageProduct.linkCd}`" target='_blank'>{{storageProduct.linkCd}}</a></td>
                 <td>{{storageProduct.prodCd}}</td>
                 <td>{{storageProduct.partnerCd}}</td>
                 <td>{{storageProduct.categoryLNm}}</td>
@@ -1031,7 +1031,7 @@
           <div class="card-shadow">
             <div class="info-box mb-3">
               <div class="info">
-                <span>● 자료수: 총2 건</span>
+                <span>● 자료수: 총 {{registeredPagination.totalCount}} 건</span>
               </div>
               <div class="wrap-btn">
                 <a class="btn btn-outline-dark" href="#">송장정보 저장</a>
@@ -1041,90 +1041,68 @@
                 <a class="btn btn-file" href="#"><i class="far fa-file-download"></i></a>
               </div>
             </div>
-            <table class="centered table mb-2">
+            <div class="scroll">
+            <table class="centered table mb-2 _scroll ">
               <colgroup>
+                <col style="width:5%">
+                <col style="width:5%">
                 <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
+                <col style="width:5%">
+                <col style="width:10%">
+                <col style="width:14%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:8%">
               </colgroup>
               <thead>
               <tr>
                 <th>선택</th>
-                <th>알림</th>
-                <th>주문수집일</th>
-                <th>쇼핑몰 주문번호</th>
-                <th>주문상태</th>
-                <th>쇼핑몰(ID)</th>
-                <th>주문자</th>
-                <th>상품명(옵션)</th>
-                <th>택배사</th>
-                <th>송장번호</th>
-                <th>수량</th>
-                <th>주문액</th>
-                <th>수취인</th>
-                <th>휴대번호</th>
+                <th>등록코드</th>
+                <th>보관 상품코드</th>
+                <th>고객사 상품코드</th>
+                <th>카테고리</th>
+                <th>상품명</th>
+                <th>판매상태</th>
+                <th>판매가</th>
+                <th>사용자 판매가</th>
+                <th>마진율(%)</th>
+                <th>전체수량</th>
+                <th>최종 수정일</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr v-for ="(registeredProduct,idx) in registeredProductList" :key="'registered_'+idx" :class="{active: idx === registeredSelectedTab}" @click="registeredTabClick(registeredProduct,idx)">
                 <td>
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" title="checkbox">
+                    <input type="checkbox" v-model="registered_check" :value="registeredProduct" class="custom-control-input">
                     <label class="custom-control-label"></label>
                   </div>
                 </td>
-                <td>묶음</td>
-                <td>2021-08-08</td>
-                <td>5195561922</td>
-                <td>배송준비</td>
-                <td>asa@naver.com</td>
-                <td>홍길동</td>
-                <td>GPS 수신</td>
-                <td>택배사</td>
-                <td>1234-5678</td>
-                <td>1</td>
-                <td>125,000</td>
-                <td>홍길동</td>
-                <td>010-1234-1234</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" title="checkbox">
-                    <label class="custom-control-label"></label>
-                  </div>
-                </td>
-                <td>묶음</td>
-                <td>2021-08-08</td>
-                <td>5195561922</td>
-                <td>배송준비</td>
-                <td>asa@naver.com</td>
-                <td>홍길동</td>
-                <td>GPS 수신</td>
-                <td>택배사</td>
-                <td>1234-5678</td>
-                <td>1</td>
-                <td>125,000</td>
-                <td>홍길동</td>
-                <td>010-1234-1234</td>
-              </tr>
-              </tbody>
+                <td><a :href="`http://smartstore.naver.com/manhwasuper/products/${registeredProduct.linkCd}`" target='_blank'>{{registeredProduct.linkCd}}</a></td>
+                <td>{{registeredProduct.prodCd}}</td>
+                <td>{{registeredProduct.partnerCd}}</td>
+                <td>{{registeredProduct.categoryLNm}}</td>
+                <td>{{registeredProduct.prodNm}}</td>
+                <td>{{registeredProduct.prodStatus | prodStatus}}</td>
+                <td>{{registeredProduct.prodPrice}}</td>
+                <td>{{registeredProduct.uprodPrice}}</td>
+                <td>{{registeredProduct.margin}}</td>
+                <td>{{registeredProduct.invenCnt}}</td>
+                <td>{{registeredProduct.uptDate}}</td>
+            </tr>
+            </tbody>
             </table>
+            </div>
+            <RegisteredPagination @paging="registeredListSend">
+            </RegisteredPagination>
+
             <div class="info-box my-2">
               <div class="wrap-btn">
-                <a class="btn btn-outline-dark" href="#">주문삭제</a>
-                <a class="btn btn-outline-dark" href="#">일괄문자전송</a>
+                <button class="btn btn-outline-dark" href="#">주문삭제</button>
+                <button class="btn btn-outline-dark" href="#">일괄문자전송</button>
               </div>
             </div>
           </div>
@@ -1597,6 +1575,7 @@ import ModalView from "../../components/common/alterPopupModal";
 import DomePagination from "../../components/common/pagination";
 import DbPagination from "../../components/common/pagination";
 import StoragePagination from "../../components/common/pagination"
+import RegisteredPagination from "../../components/common/pagination"
 import {EventBus} from "../../components/event/event-bus";
 import { mapGetters } from 'vuex';
 
@@ -1613,6 +1592,7 @@ export default {
       domeProductList : [],
       dbProductList : [],
       storageProductList : [],
+      registeredProductList : [],
 
       storageModFlag: false,
       isModalViewed: false,
@@ -1639,11 +1619,19 @@ export default {
         pageIndex: 1
       },
 
+      registeredSelectedTab : 0,
+      registeredPagination: {
+        totalCount: 0,
+        PageSize: 10,
+        pageIndex: 1
+      },
+
       dome_check: [],
       db_check: [],
       storage_check: [],
       storage_check_test : '',
       dome_detail_cd: '',
+      registered_check: [],
 
       storage_prodIdx : '',
       storage_prodCd : '',
@@ -1723,13 +1711,13 @@ export default {
   components: {
     DomePagination,
     DbPagination,
-    StoragePagination
+    StoragePagination,
+    RegisteredPagination
   },
 
   created () {
     this.domeListSend();
     this.dbListSend();
-    //this.storageListSend();
   },
   filters:{
     'domeChangeDeli'(value){
@@ -1776,6 +1764,8 @@ export default {
         }
       }else if(this.currentTab == 2){
         this.storageListSend();
+      }else if(this.currentTab == 3){
+        this.registeredListSend();
       }
     },
     // ##################################################### 공통 메소드 END #################################################################
@@ -1911,482 +1901,7 @@ export default {
 
       return data;
     },
-    storageConvert : function (storageproduct){
-      let result = [];
-      var prodIdx;
-      var userId;
-      var partnerCd;
-      var prodCd;
-      var prodNm;
-      var categoryCd;
-      var categoryLCd;
-      var categoryLNm;
-      var categoryMCd;
-      var categoryMNm;
-      var categorySCd;
-      var categorySNm;
-      var prodPrice;
-      var uprodPrice;
-      var consumerPrice;
-      var consumerYn;
-      var deliFlag;
-      var deliPrice;
-      var returnYn;
-      var maker;
-      var listImg;
-      var content;
-      var boxQty;
-      var prodStatus;
-      var adultYn;
-      var taxYn;
-      var useYn;
-      var regDate;
-      var regName;
-      var uptDate;
-      var uptName;
-      var deliArea;
-      var invenType;
-      var invenCnt;
-      var minOrderLimit;
-      var maxOrderLimit;
-      var reserves;
-      var impoLevel;
-      var priceOpen;
-      var deliType;
-      var deliPay;
-      var imgEnType;
-      var img1;
-      var margin;
-      /*
-      var level;
-      var wholeCategoryId;
-      var wholeCategoryName;
-      */
-
-      for(let inData in storageproduct){
-        prodIdx = storageproduct[inData].prodIdx;
-        userId = storageproduct[inData].userId;
-        partnerCd = storageproduct[inData].partnerCd;
-        prodCd = storageproduct[inData].prodCd;
-        prodNm = storageproduct[inData].prodNm;
-        categoryCd = storageproduct[inData].categoryCd;
-        categoryLCd = storageproduct[inData].categoryLCd;
-        categoryLNm = storageproduct[inData].categoryLNm;
-        categoryMCd = storageproduct[inData].categoryMCd;
-        categoryMNm = storageproduct[inData].categoryMNm;
-        categorySCd = storageproduct[inData].categorySCd;
-        categorySNm = storageproduct[inData].categorySNm;
-        prodPrice = storageproduct[inData].prodPrice;
-        uprodPrice = storageproduct[inData].uprodPrice;
-        consumerPrice = storageproduct[inData].consumerPrice;
-        consumerYn = storageproduct[inData].consumerYn;
-        deliFlag = storageproduct[inData].deliFlag;
-        deliPrice = storageproduct[inData].deliPrice;
-        returnYn = storageproduct[inData].returnYn;
-        maker = storageproduct[inData].maker;
-        listImg = storageproduct[inData].listImg;
-        content = storageproduct[inData].content;
-        boxQty = storageproduct[inData].boxQty;
-        prodStatus = storageproduct[inData].prodStatus;
-        adultYn = storageproduct[inData].adultYn;
-        taxYn = storageproduct[inData].taxYn;
-        useYn = storageproduct[inData].useYn;
-        regDate = storageproduct[inData].regDate;
-        regName = storageproduct[inData].regName;
-        uptDate = storageproduct[inData].uptDate;
-        uptName = storageproduct[inData].uptName;
-        deliArea = storageproduct[inData].deliArea;
-        invenType = storageproduct[inData].invenType;
-        invenCnt = storageproduct[inData].invenCnt;
-        minOrderLimit = storageproduct[inData].minOrderLimit;
-        maxOrderLimit = storageproduct[inData].maxOrderLimit;
-        reserves = storageproduct[inData].reserves;
-        impoLevel = storageproduct[inData].impoLevel;
-        priceOpen = storageproduct[inData].priceOpen;
-        deliType = storageproduct[inData].deliType;
-        deliPay = storageproduct[inData].deliPay;
-        imgEnType = storageproduct[inData].imgEnType;
-        img1 = storageproduct[inData].img1;
-        margin = storageproduct[inData].margin;
-
-        /*
-        if(categorySCd == null || categorySCd == ""){
-          if(categoryMCd == null || categoryMCd == ""){
-            if(categoryLCd == null || categoryLCd == ""){
-              level = 1;
-              wholeCategoryId = categoryCd;
-            } else{
-              level = 2;
-              wholeCategoryId = categoryLCd;
-              wholeCategoryName = categoryLNm;
-            }
-          } else{
-            level = 3;
-            wholeCategoryId = categoryMCd;
-            wholecategoryName = categoryMNm;
-          }
-        } else{
-          level = 4;
-          wholeCategoryId = categorySCd;
-          wholecategoryName = categorySNm;
-        }
-        */
-
-        var product =
-        {
-          "product": {
-            "saleType": "NEW",
-            "excludeAdminDiscount": false,
-            "excludeGivePresent": false,
-            "payExposure": true,
-            "images": [
-              {
-                "imageType": "REPRESENTATIVE",
-                "order": 1,
-                "imageUrl": "http://shop1.phinf.naver.net/20210917_110/1631837641820TVr2B_PNG/32973484533839972_1584987784.PNG", //listImg
-                "width": 264,
-                "height": 227,
-                "fileSize": 755
-              }
-            ],
-            "videos": [],
-            "detailAttribute": {
-              "naverShoppingSearchInfo": {},
-              "afterServiceInfo": {
-                "afterServiceTelephoneNumber": "010-9224-8577", //this.shopNumber,
-                "afterServiceGuideContent": "제조사에 문의하세요."
-              },
-              "originAreaInfo": {
-                "type": "LOCAL",
-                "originArea": {
-                  "code": "0002281"
-                }
-              },
-              "sellerCodeInfo": {
-                "sellerManagementCode": "",
-                "sellerBarcode": "",
-                "sellerCustomCode1": "",
-                "sellerCustomCode2": ""
-              },
-              "seoInfo": {
-                "sellerTags": [],
-                "pageTitle": "",
-                "metaDescription": ""
-              },
-              "optionInfo": {
-                "optionUsable": false,
-                "options": [],
-                "optionCombinations": [],
-                "optionStandards": [],
-                "optionDeliveryAttributes": [],
-                "useStockManagement": true
-              },
-              "supplementProductInfo": {
-                "sortType": "CREATE",
-                "count": 0,
-                "usable": false,
-                "supplementProducts": []
-              },
-              "purchaseReviewInfo": {
-                "purchaseReviewExposure": true
-              },
-              "customMadeInfo": {
-                "customMade": false
-              },
-              "taxType": "TAX",
-              "productCertificationInfos": [],
-              "minorPurchasable": true,
-              "productInfoProvidedNotice": {
-                "productInfoProvidedNoticeType": "ETC",
-                "productInfoProvidedNoticeContent": {
-                  "templateType": "PRODUCT_INFO_PROVIDED_NOTICE",
-                  "productInfoProvidedNoticeType": "ETC",
-                  "returnCostReason": "0",
-                  "noRefundReason": "0",
-                  "qualityAssuranceStandard": "0",
-                  "compensationProcedure": "0",
-                  "troubleShootingContents": "0",
-                  "itemName": "상세정보 참조",
-                  "modelName": "상세정보 참조",
-                  "certificateDetails": "상세정보 참조",
-                  "manufacturer": "상세정보 참조",
-                  "afterServiceDirector": "상세정보 참조"
-                }
-              },
-              "productAttributes": [],
-              "consumptionTax": "TEN",
-              "certificationTargetExcludeContent": {
-                "kcYn": "TRUE"
-              },
-              "useReturnCancelNotification": false,
-              "sellerCodeInfo": {
-                "sellerManagementCode": prodCd, //prodCd
-                "sellerBarcode": "",
-                "sellerCustomCode1": "",
-                "sellerCustomCode2": ""
-              }
-            },
-            "detailContent": {
-              "editorType": "NONE",
-              "editorTypeForEditor": "SEONE",
-              "existsRemoveTags": false,
-              "productDetailInfoContent": "testcontent"
-            },
-            "deliveryInfo": {
-              "deliveryType": "DELIVERY",
-              "deliveryAttributeType": "NORMAL",
-              "deliveryFee": {
-                "deliveryFeeType": "PAID",
-                "baseFee": 2500,
-                "deliveryFeePayType": "PREPAID",
-                "deliveryFeeByArea": {
-                  "deliveryAreaType": "AREA_3",
-                  "area2extraFee": 3000,
-                  "area3extraFee": 5000
-                }
-              },
-              "claimDeliveryInfo": {
-                "returnDeliveryCompany": {
-                  "regDate": "2020-08-19T14:05:40.011+0000",
-                  "modDate": "2020-08-19T14:05:40.011+0000",
-                  "regAuditInfo": {
-                    "memberNo": this.shopMemberNo, //101057393,
-                    "loginId":  this.shopLoginId, //"as****",
-                    "name":  this.shopSellerName, //"권*상",
-                    "memberType": "NAVER",
-                    "ip": "49.168.141.108",
-                    "requestId": "0dmVJtm4TeaSd_3-Yd7AQQ",
-                    "isMasking": true,
-                    "adminViewText":  this.shopLoginId, //"as****(NAVER)"
-                  },
-                  "modAuditInfo": {
-                    "memberNo": this.shopMemberNo, //101057393,
-                    "loginId":  this.shopLoginId, //"as****",
-                    "name": this.shopSellerName, //"권*상",
-                    "memberType": "NAVER",
-                    "ip": "49.168.141.108",
-                    "requestId": "0dmVJtm4TeaSd_3-Yd7AQQ",
-                    "isMasking": true,
-                    "adminViewText":  this.shopLoginId, //"as****(NAVER)"
-                  },
-                  "id": 1146763,
-                  "accountNo": this.shopAccountNo, //100807757,
-                  "returnDeliveryCompanyPriorityType": "PRIMARY",
-                  "naverPayAppointment": true,
-                  "deliveryCompanyName": "우체국택배"
-                },
-                "returnDeliveryCompanySeq": 1146763,
-                "returnDeliveryFee": deliPrice,
-                "exchangeDeliveryFee": 5000,
-                "shippingAddress": {
-                  "id": 102324513,
-                  "accountNo": this.shopAccountNo, //100807757,
-                  "alias": "상품출고지",
-                  "addressType": "RELEASE",
-                  "addressInfo": {
-                    "fullAddressInfo": this.shopAddress, //"인천광역시 서구 봉오재2로 37 (엘에이치웨스턴블루힐) 210동 2404호 (우 : 22732) "
-                  },
-                  "isOverseas": false
-                },
-                "shippingAddressId": 102324513,
-                "returnAddress": {
-                  "id": 102324514,
-                  "accountNo": this.shopAccountNo, //100807757,
-                  "alias": "반품교환지",
-                  "addressType": "REFUND_OR_EXCHANGE",
-                  "addressInfo": {
-                    "fullAddressInfo": this.shopAddress, //"인천광역시 서구 봉오재2로 37 (엘에이치웨스턴블루힐) 210동 2404호 (우 : 22732) "
-                  },
-                  "isOverseas": false
-                },
-                "returnAddressId": 102324514,
-                "freeReturnInsuranceYn": false
-              },
-              "installationFee": false,
-              "accountNo": this.shopAccountNo, //100807757,
-              "cloneDeliveryAttributeType": "NORMAL",
-              "customMadeDirectInputYn": false,
-              "expectedDeliveryPeriodType": "",
-              "expectedDeliveryPeriodDirectInput": ""
-            },
-            "customerBenefit": {},
-            "productStats": {},
-            "representImageUrl": "",
-            "useSalePeriod": false,
-            "category": {
-              "id": "50001914",
-              "parentId": "50000024",
-              "name": "헬스보충제", //categorySNM
-              "wholeCategoryId": "50000006>50000024>50001914", //wholeCategoryId
-              "wholeCategoryName": "식품>다이어트식품>헬스보충제", //wholeCategoryName
-              "level": 3, //level
-              "lastLevel": true,
-              "deleted": false,
-              "sellBlogUse": true,
-              "sortOrder": 0,
-              "juvenileHarmful": false,
-              "$promise": {},
-              "$resolved": true,
-              "$order": 21,
-              "exceptionalCategoryTypes": [
-                "REVIEW_UNEXPOSE",
-                "REGULAR_SUBSCRIPTION"
-              ],
-              "exceptionalCategoryAttributes": []
-            },
-            "name": prodNm,
-            "liveDiscountBenefit": null,
-            "salePrice": uprodPrice,
-            "stockQuantity": 999 //invenCnt
-          },
-          "savedTemplate": {
-            "EVENT_PHRASE": false
-          },
-          "singleChannelProductMap": {
-            "STOREFARM": {
-              "id": "",
-              "selfProductNameUsable": false,
-              "channelProductName": "",
-              "channelServiceType": "STOREFARM",
-              "channelProductType": "SINGLE",
-              "channel": null,
-              "epInfo": {
-                "naverShoppingRegistration": true,
-                "enuriRegistration": false,
-                "danawaRegistration": false,
-                "naverDisabled": false,
-                "enuriDisabled": true,
-                "danawaDisabled": true,
-                "disabledAll": false
-              },
-              "channelProductDisplayStatusType": "ON",
-              "channelProductStatusType": "NORMAL",
-              "storeKeepExclusiveProduct": false,
-              "orderRequestUsable": false,
-              "best": false,
-              "bbsConfig": false,
-              "materialImages": [],
-              "tagImages": [],
-              "barcodeImage": null,
-              "affiliateInfo": {
-                "affiliateYn": false
-              },
-              "channelNo": 100870126, //this.shopDefaultChannerNo,
-            }
-          },
-          "representNo": 100779884,
-          "representName": this.shopName, //"만화상회",
-          "representativeBirthDay": "1981-09-07T15:00:00.000+0000",
-          "representType": "DOMESTIC_BUSINESS",
-          "productRegistAuthCategories": [
-            "HEALTH_FUNC_FOOD"
-          ],
-          "accountNo": this.shopAccountNo, //100807757,
-          "accountId": this.shopAccountId, //"ncp_1o0nrh_01",
-          "advertiser": true,
-          "mallSeq": this.shopMailSeq, //1953499,
-          "defaultChannelNo": 100870126, //this.shopDefaultChannerNo,
-          "accountExternalStatusType": "NORMAL",
-          "npayRefKey": "510817653",
-          "payUseYn": true,
-          "actionGrade": "FOURTH",
-          "branchUseYn": false,
-          "sellerNo": 510817653,
-          "ownerChannelInfoList": [
-            {
-              "id": this.shopDefaultChannerNo, //100870126,
-              "accountNo": this.shopAccountNo, //100807757,
-              "type": "STOREFARM",
-              "name": this.shopName, //"만화상회",
-              "url": "manhwasuper",
-              "channelExternalStatusType": "NORMAL",
-              "talkAccountId": "w4ue50",
-              "talkExposure": true,
-              "subVerticalServiceTypes": [],
-              "payUseYn": true,
-              "channelServiceType": "STOREFARM",
-              "fullUrl": "https://smartstore.naver.com/manhwasuper",
-              "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
-            }
-          ],
-          "thisDayDispatchBasisHour": 16,
-          "thisDayDispatchBasisMinute": 0,
-          "sellerHolidayList": [
-            "2021-09-16",
-            "2021-09-17"
-          ],
-          "enforcedPermitPreOrderConfig": false,
-          "subscriptionUseYn": false,
-          "businessType": "PRIVATE",
-          "freeReturnInsuranceYn": false,
-          "searchableChannelInfoListMap": {
-            "STOREFARM": [
-              {
-                "id": this.shopDefaultChannerNo, //100870126,
-                "accountNo": this.shopAccountNo, //100807757,
-                "type": "STOREFARM",
-                "name": this.shopName, //"만화상회",
-                "url": "manhwasuper",
-                "channelExternalStatusType": "NORMAL",
-                "talkAccountId": "w4ue50",
-                "talkExposure": true,
-                "subVerticalServiceTypes": [],
-                "payUseYn": true,
-                "channelServiceType": "STOREFARM",
-                "fullUrl": "https://smartstore.naver.com/manhwasuper",
-                "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
-              }
-            ]
-          },
-          "hasTalkTalkChannel": true,
-          "brandPackageCatalogType": false,
-          "overseas": false,
-          "epNaverShoppingOperable": true,
-          "creatableChannelInfoListMap": {
-            "STOREFARM": [
-              {
-                "id": this.shopDefaultChannerNo, //100870126,
-                "accountNo": this.shopAccountNo, //100807757,
-                "type": "STOREFARM",
-                "name": this.shopNamem, //"만화상회",
-                "url": "manhwasuper",
-                "channelExternalStatusType": "NORMAL",
-                "talkAccountId": "w4ue50",
-                "talkExposure": true,
-                "subVerticalServiceTypes": [],
-                "payUseYn": true,
-                "channelServiceType": "STOREFARM",
-                "fullUrl": "https://smartstore.naver.com/manhwasuper",
-                "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
-              }
-            ]
-          },
-          "updatableChannelInfoListMap": {
-            "STOREFARM": [
-              {
-                "id": this.shopDefaultChannerNo, //100870126,
-                "accountNo": this.shopAccountNo, //100807757,
-                "type": "STOREFARM",
-                "name": this.shopName, //"만화상회",
-                "url": "manhwasuper",
-                "channelExternalStatusType": "NORMAL",
-                "talkAccountId": "w4ue50",
-                "talkExposure": true,
-                "subVerticalServiceTypes": [],
-                "payUseYn": true,
-                "channelServiceType": "STOREFARM",
-                "fullUrl": "https://smartstore.naver.com/manhwasuper",
-                "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
-              }
-            ]
-          },
-          "epEnuriOperable": false,
-          "epDanawaOperable": false,
-          "adult": true
-        }
-      }
-    },
-    storageDomeConvert : function(storageproduct){
+    storageConvert : function(storageproduct){
       var prodIdx = storageproduct.prodIdx;
       var userId = storageproduct.userId;
       var partnerCd = storageproduct.partnerCd;
@@ -3002,29 +2517,57 @@ export default {
       for(let inData in this.storage_check){
         this.storage_check_test = this.storage_check[inData];
         this.storage_prodIdx = this.storage_check_test.prodIdx;
-        this.storage_prodCd = this.storage_check_test.prodCd;+
+        this.storage_prodCd = this.storage_check_test.prodCd;
 
-        axios.post('/api/product-manage/v1/register-stp', this.storageDomeConvert(this.storage_check_test)).then(res => {
+        axios.post('/api/product-manage/v1/register-stp', this.storageConvert(this.storage_check_test)).then(res1 => {
           axios.post('/api/product-manage/v1/register-stp-after',{
             prodIdx : this.storage_prodIdx,
             prodCd : this.storage_prodCd,
-            editCd : res.data.productId,
-            LinkCd : data.singleChannelProductMap.STOREFARM.id
-          }).then(res => {
-            alert("상품이 등록되었습니다");
+            editCd : res1.data.productId,
+            linkCd : res1.data.singleChannelProductMap.STOREFARM.id
+          }).then(res2 => {
+            //alert("상품이 등록되었습니다");
+            alert(res2.data);
           })
         })
       }
-
-      /*하나씩 등록
-      axios.post('/api/product-manage/v1/register-stp', this.storageConvert(this.storage_check)).then(res => {
-        //axios.post('/api/' ,this.registerResult(res.data);
-        // alert(res.data);
-        // alert("상품이 등록되었습니다.");
-      })
-      */
-    }
+    },
     // ##################################################### 보관상품 메소드(currentTab = 2 ) END #####################################################
+    // ##################################################### 등록상품 관리 메소드(currentTab = 3 ) START ################################################
+    registeredTabClick  : function(registeredProduct,idx){
+      this.registeredSelectedTab = idx;
+      this.modStorage(registeredProduct);
+      if(this.registered_check.includes(registeredProduct)){
+          this.registered_check.splice(this.registered_check.indexOf(registeredProduct),1);
+      }else{
+          this.registered_check[idx] = registeredProduct;
+      }
+    },
+    registeredListSend : function(index){
+      axios.post('/api/product-manage/v1/registered-list',{
+        pageIndex : index ? index : this.registeredPagination.pageIndex,
+        pageSize : this.registeredPagination.pageSize
+      }).then(res => {
+        this.registeredProductList = res.data.resultList;
+        this.registeredPagination.totalCount = res.data.totalCount;
+        this.registeredPagination.pageSize = res.data.pageSize;
+        this.registeredPagination.pageIndex = res.data.pageIndex;
+        EventBus.$emit("registeredPaginationInfo",this.storagePagination);
+      }).catch(res => {
+        if(res.response.status =="401" || res.response.status =="302"){
+          alert("인증 기간이 만료되었습니다.");
+          this.$router.go('/');
+        }else{
+          this.modalMessage=res.response.data;
+          this.isModalViewed=true;
+        }
+      })
+    }
+
+    // ##################################################### 등록상품 관리 메소드(currentTab = 3 ) END ##################################################
+
+    
+    
 
   }
 }

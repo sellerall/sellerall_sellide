@@ -116,21 +116,17 @@ public class ProductManageRestController {
 		cookies = productManageService.naverLogin(user);
 		result = productManageService.naverProductUpload(product, cookies);
 		
-		//returnData = productManageService.naverUploadCheck(product, result);
-		
 		return result;
 	}
 	
 	@PostMapping("/v1/register-stp-after")
-	public String registerStpAfter(@RequestBody StorageProductRequestVO param) {
+	public String registerStpAfter(@RequestBody StorageProductRequestVO param, @LoginUser SessionUser user) {
 		logger.debug("/v1/register-stp-after , register-stp-after 컨트롤러");
 		
-		logger.debug(param.getProdIdx());
-		logger.debug(param.getProdCd());
-		logger.debug(param.getEditCd());
-		logger.debug(param.getLinkCd());
+		String result = "";
+		result = productManageService.updateRegisterCode(param, user);
 		
-		return null;
+		return result;
 	}
 	
 	@PostMapping("/v1/edit-stp")
@@ -145,5 +141,13 @@ public class ProductManageRestController {
 		result = productManageService.naverProductEdit(request, cookies);
 		
 		return result;
+	}
+	
+	//등록상품 관리
+	@PostMapping("/v1/registered-list")
+	public ResultVO getRegisteredList(@RequestBody StorageProductRequestVO param, @LoginUser SessionUser user) throws Exception {
+		logger.debug("/v1/registered-list , getRegisteredList 컨트롤러");
+		ResultVO resultVO = productManageService.registeredProductList(param,user);
+		return resultVO;
 	}
 }

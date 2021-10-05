@@ -12,10 +12,8 @@ import lombok.ToString;
 @ToString
 public class StorageProductRequestVO  extends CommonVO{
 	private String prodIdx;			/* 사용자상품index (auto_increment) */	
-	//
 	private String editCd;
-	private String LinkCd;
-	//
+	private String linkCd;
 	private String userId;			/* 사용자 ID */	
 	private String partnerCd;		/* 거래처코드 */			/*( 필수) */	
 	private String prodCd;			/* 상품코드 */				/*( 필수) */

@@ -93,6 +93,15 @@
 			${tableName}
 	</select>
 	
+	<update id="updateRegisterCode">
+		/* kr.co.sellerall.sellide.productManager.updateRegisterCode */
+		UPDATE ${tableName}
+		SET    EDIT_CD = #{vo.editCd},
+		 	   LINK_CD = #{vo.linkCd}
+		WHERE  PROD_IDX = #{vo.prodIdx}
+		AND	   PROD_CD = #{vo.prodCd};
+	</update>
+	
 	<select id="selectOneStorageProduct" resultType="kr.co.sellerall.sellide.dto.StorageProductDTO">
 		/* kr.co.sellerall.sellide.productManager.selectStorageProductList */
 		SELECT

@@ -1,0 +1,2578 @@
+<template>
+  <div class="contents">
+    <div class="page-content">
+      <div class="title-content">상품관리</div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">셀리드</a></li>
+          <li class="breadcrumb-item active" aria-current="page">상품관리</li>
+        </ol>
+      </nav>
+
+      <div class="nav nav-tabs mb-3" id="tabs" role="tablist">
+        <button class="nav-item nav-link" v-for="(tab, index) in tabs" :key="tab.id"
+        v-bind:class="{active: currentTab === index}"
+        @click="menuTabClick(tab,index)">{{tab}}
+        </button>
+      </div>
+
+      <div class="tab-content">
+     	  <!-- 보관상품 등록(개별) -->
+        <div v-show="currentTab==0">
+          <div class="card-shadow">
+            <div class="box-grey">
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">일자</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 120px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">등록일</option>
+                          <option>최종 수정일</option>
+                        </select>
+                      </div>
+                      <span class="wave float-left">&nbsp;</span>
+                      <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 140px">
+                        <input type="text" id="datePicker1" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                        <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                      </div>
+                      <span class="wave float-left">~</span>
+                      <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 140px">
+                        <input type="text" id="datePicker2" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                        <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                      </div>
+                      <div class="btn-wrap float-left">
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_13">오늘</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_14">일주일</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_15">1개월</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_16">3개월</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_17">1년</a>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">검색</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 130px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">알림 전체</option>
+                          <option>등록상품 있음</option>
+                          <option>등록상품 없음</option>
+                          <option>복사</option>
+                          <option>몰별 가격상품</option>
+                          <option>품목 미적용</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 130px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">판매상태</option>
+                          <option>판매중</option>
+                          <option>품절</option>
+                          <option>판매종료</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 130px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">상품명</option>
+                          <option>보관 상품코드</option>
+                          <option>고객사 상품코드</option>
+                          <option>제조사</option>
+                          <option>브랜드</option>
+                          <option>모델명</option>
+                          <option>등록자 ID</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 200px">
+                          <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="float-left">
+                          <a class="btn btn-primary" href="#">검색</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">상품정보 불러오기</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 300px">
+                        <select v-model="selectedShop" class="custom-select custom-select-sm" @change="productTabChange($event)">
+                          <option v-for="option in shopProduct" v-bind:value="option.value" :key="option" >
+                            {{option.text}}
+                          </option>
+                        </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div v-show="selectedShop == 'Dome'">
+                    <div class="scroll">
+                      <table class="centered table">
+                        <colgroup>
+                          <col style="width:5%">
+                          <col style="width:9%">
+                          <col style="width:50%">
+                          <col style="width:10%">
+                          <col style="width:10%">
+                          <col style="width:15%">
+                          <col style="width:8%">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th style="width:5%">선택</th>
+                            <th style="width:9%">상품번호</th>
+                            <th style="width:50%">상품명</th>
+                            <th style="width:10%">판매자ID</th>
+                            <th style="width:10%">닉네임</th>
+                            <th style="width:15%">배송비</th>
+                            <th style="width:8%">상품이미지</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for ="(domeproduct,idx) in domeProductList" :key="'dome_'+idx" :class="{active: idx === domeSelectedTab}" @click="domeTabClick(domeproduct,idx)">
+                            <td>
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" v-model="dome_check" :value="domeproduct" class="custom-control-input">
+                                <label class="custom-control-label" ></label>
+                              </div>
+                            </td>
+                            <td>{{domeproduct.no}}</td>
+                            <td class="text-left" style="white-space:none;">{{domeproduct.title}}</td>
+                            <td>{{domeproduct.id}}</td>
+                            <td>{{domeproduct.nick}}</td>
+                            <td>{{domeproduct.deli.who | domeChangeDeli}}<br>({{domeproduct.deli.fee}}) </td>
+                            <td><a :href="`http://domeme.domeggook.com/s/${domeproduct.no}`" target='_blank'><img :src="domeproduct.thumb" style="max-width: 100%; height: auto;"></a></td>
+                          </tr>
+                      </tbody>
+                      </table>
+                    </div>
+                    <DomePagination @paging="domeListSend">
+                    </DomePagination>
+                  </div>
+                  <div v-show="selectedShop == 'Db'">
+                    <div class="scroll">
+                      <table class="centered table">
+                        <colgroup>
+                          <col style="width:5%">
+                          <col style="width:12%">
+                          <col style="width:50%">
+                          <col style="width:10%">
+                          <col style="width:10%">
+                          <col style="width:15%">
+                          <col style="width:8%">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th style="width:5%">선택</th>
+                            <th style="width:12%">상품번호</th>
+                            <th style="width:50%">상품명</th>
+                            <th style="width:10%">판매자ID</th>
+                            <th style="width:10%">판매샵</th>
+                            <th style="width:15%">배송비</th>
+                            <th style="width:8%">상품이미지</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for ="(dbproduct,idx) in dbProductList" :key="'db_'+idx" :class="{active: idx === dbSelectedTab}" @click="dbTabClick(dbproduct,idx)" for="mike" >
+                            <td>
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" v-model="db_check" :value="dbproduct" class="custom-control-input" id="mike">
+                                <label class="custom-control-label" ></label>
+                              </div>
+                            </td>
+                            <td>{{dbproduct.prodCd}}</td>
+                            <td class="text-left" style="white-space:none;">{{dbproduct.prodNm}}</td>
+                            <td>{{dbproduct.userId}}</td>
+                            <td>{{dbproduct.partnerCd}}</td>
+                            <td>{{dbproduct.deliFlag | dbChangeDeli}}<br>({{dbproduct.deliPrice}}) </td>
+                            <td><a href="" ><img src="" style="max-width: 100%; height: auto;"></a></td>
+                          </tr>
+                      </tbody>
+                      </table>
+                    </div>
+                    <DbPagination @paging="dbListSend">
+                    </DbPagination>
+                  </div>
+                  <div class="info-box mb-0">
+                    <div class="wrap-btn">
+                      <button class="btn btn-outline-dark" v-on:click="storageInit">초기화</button>
+                      <button class="btn btn-outline-dark" v-on:click="storageRegister">보관상품 등록</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <!-- 보관상품 등록(대량) -->
+        <div v-show="currentTab==1">
+          <div class="card-shadow">
+            <div class="box-grey">
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">엑셀 업로드</div>
+                      <div class="col-desc">
+                      <div class="input-group float-left" style="width: 500px">
+                        <div class="custom-file custom-file-sm">
+                          <input type="file" class="custom-file-input file-path validate" title="file" id="inputGroupFile01" aria-describedby="inputGroupFile01">
+                          <label class="custom-file-label" for="inputGroupFile01"></label>
+                          <button class="btn btn-outline-dark custom-file-btn">파일찾기</button>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <br> * 엑셀 파일의 확장자가 'xls' 파일만 업로드해주세요.
+                    <br> * 엑셀 파일은 하단에 [샘플파일 다운로드]를 통해 최신버전으로 작업해주세요.
+                  </div>
+                </div>
+              </div>
+              <div class="info-box my-2">
+                <div class="wrap-btn">
+                  <a class="btn btn-outline-dark" href="#">샘플파일 다운로드</a>
+                  <a class="btn btn-outline-dark" href="#">업로드하기</a>
+                </div>
+              </div>
+            </div>
+			    </div>
+        </div>
+
+        <!-- 보관상품 -->
+        <div v-show="currentTab==2">
+          <div class="card-shadow">
+            <div class="box-grey">
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">거래처</div>
+                      <div class="col-desc">
+                      <div class="input-group float-left" style="width: 120px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">도매매</option>
+                          <option>오너클랜</option>
+                        </select>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">일자</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 120px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">등록일</option>
+                          <option>최종 수정일</option>
+                        </select>
+                      </div>
+                      <span class="wave float-left">&nbsp;</span>
+                      <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 140px">
+                        <input type="text" id="datePicker1" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                        <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                      </div>
+                      <span class="wave float-left">~</span>
+                      <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 140px">
+                        <input type="text" id="datePicker2" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                        <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                      </div>
+                      <div class="btn-wrap float-left">
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_13">오늘</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_14">일주일</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_15">1개월</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_16">3개월</a>
+                        <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_17">1년</a>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">검색</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 130px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">알림 전체</option>
+                          <option>등록상품 있음</option>
+                          <option>등록상품 없음</option>
+                          <option>복사</option>
+                          <option>몰별 가격상품</option>
+                          <option>품목 미적용</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 130px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">판매상태</option>
+                          <option>판매중</option>
+                          <option>품절</option>
+                          <option>판매종료</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 130px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">상품명</option>
+                          <option>보관 상품코드</option>
+                          <option>고객사 상품코드</option>
+                          <option>제조사</option>
+                          <option>브랜드</option>
+                          <option>모델명</option>
+                          <option>등록자 ID</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 200px">
+                          <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="modal-footer">
+                <div class="wrap-btn">
+                  <a class="btn btn-primary" href="#">검색</a>
+                  <a class="btn btn-outline-dark" href="#">초기화</a>
+                </div>
+              </div>
+            </div>
+			    </div>
+			    <br>
+          <div class="card-shadow">
+            <div class="info-box mb-3">
+              <div class="info">
+                <span>● 자료수: 총 {{storagePagination.totalCount}} 건</span>
+              </div>
+              <div class="wrap-btn">
+                <a class="btn btn-outline-dark" href="#">송장정보 저장</a>
+                <a class="btn btn-outline-dark" href="#">주문일괄변경</a>
+                <a class="btn btn-outline-dark" href="#">엑셀작업</a>
+                <!--  <a class="btn btn-file mr-0" href="#"><i class="fal fa-file-alt"></i></a> 문서모양막아놓기-->
+                <a class="btn btn-file" href="#"><i class="far fa-file-download"></i></a>
+              </div>
+            </div>
+            <div class="scroll">
+            <table class="centered table mb-2 _scroll ">
+              <colgroup>
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:7%">
+                <col style="width:5%">
+                <col style="width:10%">
+                <col style="width:14%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:8%">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>선택</th>
+                <th>등록코드</th>
+                <th>보관 상품코드</th>
+                <th>고객사 상품코드</th>
+                <th>카테고리</th>
+                <th>상품명</th>
+                <th>판매상태</th>
+                <th>판매가</th>
+                <th>사용자 판매가</th>
+                <th>마진율(%)</th>
+                <th>전체수량</th>
+                <th>최종 수정일</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for ="(storageProduct,idx) in storageProductList" :key="'storage_'+idx" :class="{active: idx === storageSelectedTab}" @click="storageTabClick(storageProduct,idx)">
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" v-model="storage_check" :value="storageProduct" class="custom-control-input">
+                    <label class="custom-control-label"></label>
+                  </div>
+                </td>
+                <td><a :href="`http://smartstore.naver.com/manhwasuper/products/${storageProduct.linkCd}`" target='_blank'>{{storageProduct.linkCd}}</a></td>
+                <td>{{storageProduct.prodCd}}</td>
+                <td>{{storageProduct.partnerCd}}</td>
+                <td>{{storageProduct.categoryLNm}}</td>
+                <td>{{storageProduct.prodNm}}</td>
+                <td>{{storageProduct.prodStatus | prodStatus}}</td>
+                <td>{{storageProduct.prodPrice}}</td>
+                <td>{{storageProduct.uprodPrice}}</td>
+                <td>{{storageProduct.margin}}</td>
+                <td>{{storageProduct.invenCnt}}</td>
+                <td>{{storageProduct.uptDate}}</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            <StoragePagination @paging="storageListSend">
+            </StoragePagination>
+
+            <div class="info-box my-2">
+              <div class="wrap-btn">
+                <button class="btn btn-outline-dark" v-on:click="storageCheckInit">초기화</button>
+                <button class="btn btn-outline-dark" v-on:click="saveStore">쇼핑몰 등록</button>
+                <button class="btn btn-outline-dark" v-on:click="storageDeleteSend">상품삭제</button>
+                <button class="btn btn-outline-dark" href="#">일괄문자전송</button>
+              </div>
+            </div>
+          </div>
+
+          <br><br>
+          <transition>
+            <div class="box-grey box-grey-sm no-bullet mb-1" v-show="storageModFlag">
+              <!-- 1.상품기본정보 -->
+              <div class="card-shadow">
+                <div class="info-box mb-2">
+                  <div class="info">
+                    <span>● 1.상품 기본정보</span>
+                  </div>
+                </div>
+                *카테고리
+                <br><br>
+                <div class="row">
+                  <div class="col col-12">
+                    <div class="col-desc">
+                      <div class="input-group float-left" style="width: 150px">
+                        <select @change="changeCate1($event)" v-model="selectedCate1" class="custom-select custom-select-sm">
+                          <option disabled value="">카테고리1</option>
+                          <option v-for="option in cateList1" v-bind:value="option" :key="option">
+                            {{option.categoryNm}}
+                          </option>
+                        </select>
+                      </div>
+                      <span class="wave float-left">&nbsp;</span>
+                      <div class="input-group float-left" style="width: 200px">
+                        <select @change="changeCate2($event)" v-model="selectedCate2" class="custom-select custom-select-sm">
+                          <option disabled value="">카테고리2</option>
+                          <option v-for="option in cateList2" v-bind:value="option" :key="option">
+                            {{option.categoryNm}}
+                          </option>
+                        </select>
+                      </div>
+                      <span class="wave float-left">&nbsp;</span>
+                      <div class="input-group float-left" style="width: 200px">
+                        <select @change="changeCate3($event)" v-model="selectedCate3" class="custom-select custom-select-sm">
+                          <option disabled value="">카테고리3</option>
+                          <option v-for="option in cateList3" v-bind:value="option" :key="option">
+                            {{option.categoryNm}}
+                          </option>
+                        </select>
+                      </div>
+                      <span class="wave float-left">&nbsp;</span>
+                      <div class="input-group float-left" style="width: 200px">
+                        <select v-model="selectedCate4" class="custom-select custom-select-sm">>
+                          <option disabled value="">카테고리4</option>
+                          <option v-for="option in cateList4" v-bind:value="option" :key="option">
+                            {{option.categoryNm}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                *상품명 정보
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:30%">
+                    <col style="width:70%">
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th>*상품명</th>
+                    <td>
+                      <input type="text" class="form-control form-control-sm" placeholder="상품명은 50자 이하로 입력해 주세요." v-model="modStorageProduct.prodNm">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>요약상품명</th>
+                    <td>
+                      <input type="text" class="form-control form-control-sm" placeholder="요약 상품명은 25자 또는 영어/숫자 50자 이하로 입력해 주세요." v-model="modStorageProduct.uprodNm">
+                    </td>
+                  </tr>
+                  </thead>
+                </table>
+                <br>
+                *상품 상세설정
+                <input type="textarea" class="form-control form-control-sm" v-model="modStorageProduct.content">
+                <br>
+                        광고/홍보 상세설정
+                <input type="textarea" class="form-control form-control-sm">
+                <br>
+                        상품 요약설명
+                <input type="textarea" class="form-control form-control-sm">
+                <br>
+                *상품 이미지
+                <input type="textarea" class="form-control form-control-sm" v-model="modStorageProduct.listImg">
+                <br>
+                *상품 가격 정보
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:20%">
+                    <col style="width:20%">
+                    <col style="width:20%">
+                    <col style="width:20%">
+                    <col style="width:20%">
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th>구분</th>
+                    <th>시중가</th>
+                    <th>판매가</th>
+                    <th>공급원가</th>
+                    <th>마진율</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>*상품가격</td>
+                    <td><input type="text" class="form-control form-control-sm" v-model="modStorageProduct.prodPrice"></td> <!--시중가-->
+                    <td><input type="text" class="form-control form-control-sm" v-model="modStorageProduct.uprodPrice"></td> <!--판매가-->
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                    <td><input type="text" class="form-control form-control-sm" v-model="modStorageProduct.margin"></td> <!--마진율-->
+                  </tr>
+                  <tr>
+                    <td>*공급가능수량</td>
+                    <td colspan="4"><input type="text" class="form-control form-control-sm" style="width:300px" v-model="modStorageProduct.invenCnt"></td> <!--공급가능수량-->
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br>
+              <!-- 2.옵션정보 -->
+              <div class="card-shadow">
+                <div class="info-box mb-2">
+                  <div class="info">
+                    <span>● 2.옵션 정보</span>
+                  </div>
+                </div>
+                            옵션구성 정보입력
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:20%">
+                    <col style="width:40%">
+                    <col style="width:40%">
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th>구분</th>
+                    <th>옵션타이틀</th>
+                    <th>옵션값</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>옵션 1분류</td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="예시: 색상"></td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="에시: 파랑,검정(,로 구분)"></td>
+                  </tr>
+                  <tr>
+                    <td>옵션 2분류</td>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                  </tr>
+                  <!--
+                  <tr>
+                    <td colspan="3">
+                    <a class="btn btn-sm btn-outline-dark d-inline-block" href="#">옵션 구성하기</a>
+                    </td>
+                  </tr>
+                  -->
+                  </tbody>
+                </table>
+              </div>
+              <br>
+              <!-- 3.상품부가정보 -->
+              <div class="card-shadow">
+                <div class="info-box mb-2">
+                  <div class="info">
+                    <span>● 3.상품 부가정보</span>
+                  </div>
+                </div>
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:30%">
+                    <col style="width:70%">
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th>고객사 상품코드</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="고객사 상품코드는 30자 이하로 입력해주세요 (영문/숫자)" v-model="modStorageProduct.prodCd"></td>
+                  </tr>
+                  <tr>
+                    <th>상품 키워드</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="상품 키워드는 100자 이하로 입력해 주세요."></td>
+                  </tr>
+                  <!--
+                  <tr>
+                    <th>협력사</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 150px">
+                    <select class="custom-select custom-select-sm" title="">
+                      <option selected="">협력사 선택</option>
+                    </select>
+                    </div>
+                    </td>
+                  </tr>
+                  -->
+                  <tr>
+                    <th>*과세여부</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 150px">
+                    <select class="custom-select custom-select-sm" title="">
+                      <option selected="">과세여부 선택</option>
+                      <option>과세상품</option>
+                      <option>면세상품</option>
+                      <option>영세상품</option>
+                    </select>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>배송비</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 150px">
+                    <select class="custom-select custom-select-sm" title="">
+                      <option selected="">선불</option>
+                    </select>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>*원산지</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 150px">
+                    <select class="custom-select custom-select-sm" title=""> <!--v-model="modStorageProduct.umadePlace"-->
+                      <option selected="">기타</option>
+                    </select>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>*제조사</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="제조사는 15자 이하로 입력해주세요." v-model="modStorageProduct.maker"></td>
+                  </tr>
+                  <tr>
+                    <th>브랜드</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="브랜드는 15자 이하로 입력해주세요." v-model="modStorageProduct.ubrand"></td>
+                  </tr>
+                  <tr>
+                    <th>모델명</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="모델명은 15자 이하로 입력해주세요." v-model="modStorageProduct.model"></td>
+                  </tr>
+                  <tr>
+                    <th>모델NO.</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="모델 NO.는 15자 이하로 입력해주세요."></td>
+                  </tr>
+                  <tr>
+                    <th>제조일(발행일)</th>
+                    <td>
+                    <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                      <input type="text" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                      <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>인증번호</th>
+                    <td><input type="text" class="form-control form-control-sm" style="width: 400px" placeholder="인증번호는 15자 이하로 입력해주세요."></td>
+                  </tr>
+                  <tr>
+                    <th>유효기간 종료일</th>
+                    <td>
+                    <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                      <input type="text" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                      <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>남녀상품</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 150px">
+                    <select class="custom-select custom-select-sm" title="">
+                      <option selected="">공용</option>
+                    </select>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>판매지역</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 150px">
+                    <select class="custom-select custom-select-sm" title=""> <!--model="modStorageProduct.deliArea"-->
+                      <option selected="">전국</option>
+                    </select>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>성인상품</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 450px">
+                      <div class="radio-wrap">
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="yes" name="Radio" class="custom-control-input" v-model="modStorageProduct.adultYn">
+                          <label class="custom-control-label" for="yes">예</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="no" name="Radio" class="custom-control-input" checked="">
+                          <label class="custom-control-label" for="no">아니오</label>
+                        </div>
+                      </div>
+                    </div>
+                    </td>
+                  </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+              <!-- 4 -->
+              <div class="card-shadow">
+                <div class="info-box mb-2">
+                  <div class="info">
+                    <span>● 4.품목/인증 정보</span>
+                  </div>
+                </div>
+                *품목정보
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:30%">
+                    <col style="width:70%">
+                  </colgroup>
+                  <thead>
+                  <!--
+                  <tr>
+                    <th>품목정보 템플릿 불러오기</th>
+                    <td>
+                    <div class="input-group float-left" style="width: 300px">
+                      <select class="custom-select custom-select-sm" title="">
+                        <option selected="">품목정보 템플릿 선택</option>
+                      </select>
+                    </div>
+                    </td>
+                  </tr>
+                  -->
+                  <tr>
+                  <th>품목 선택하기</th>
+                  <td>
+                  <div class="input-group float-left" style="width: 300px">
+                  <select class="custom-select custom-select-sm" title="">
+                    <option selected="">기타</option>
+                  </select>
+                  </div>
+                  </td>
+                  </tr>
+                  </thead>
+                </table>
+
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:30%">
+                    <col style="width:70%">
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th>품명</th>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                  </tr>
+                  <tr>
+                    <th>모델명</th>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                  </tr>
+                  <tr>
+                    <th>법에 의한 인증, 허가 등을 받았음을<br> 확인할 수 있는 경우 그에 대한 사항</th>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                  </tr>
+                  <tr>
+                    <th>제조자(사)</th>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                  </tr>
+                  <tr>
+                    <th>A/S책임자 또는 소비자상담 관련 전화번호</th>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                  </tr>
+                  </thead>
+                </table>
+                <br>
+                        인증정보
+                <table class="centered table mb-2">
+                  <colgroup>
+                    <col style="width:15%">
+                    <col style="width:15%">
+                    <col style="width:15%">
+                    <!--
+                    <col style="width:15%">
+                    <col style="width:25%">
+                    <col style="width:15%">
+                    -->
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th>인증항목</th>
+                    <th>기관명</th>
+                    <th>인증번호</th>
+                    <!--
+                    <th>신고번호</th>
+                    <th>첨부파일</th>
+                    <th>관리</th>
+                    -->
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                    <div class="input-group float-left">
+                    <select class="custom-select custom-select-sm" title="">
+                      <option selected="">기타</option>
+                    </select>
+                    </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                    <!--
+                    <td><input type="text" class="form-control form-control-sm"></td>
+                    <td>
+                    <div class="input-group float-left">
+                      <div class="custom-file custom-file-sm">
+                        <input type="file" class="custom-file-input file-path validate" title="file" id="inputGroupFile01"
+                                aria-describedby="inputGroupFile01">
+                        <label class="custom-file-label" for="inputGroupFile01"></label>
+                        <button class="btn btn-outline-dark custom-file-btn">파일찾기</button>
+                      </div>
+                    </div>
+                    </td>
+                    <td>
+                    <a class="btn btn-sm btn-outline-dark d-inline-block" href="#">추가</a>
+                    <a class="btn btn-sm btn-outline-dark d-inline-block" href="#">삭제</a>
+                    </td>
+                    -->
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br>
+              <!-- 5 -->
+              <div class="card-shadow">
+                <div class="info-box my-2">
+                  <div class="wrap-btn">
+                    <button class="btn btn-outline-dark" v-on:click="storageModify">보관상품 수정</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </transition>
+        </div>
+
+        <!-- 등록상품 관리 -->
+        <div v-show="currentTab==3">
+          <div class="card-shadow">
+            <div class="box-grey">
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">일자</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">등록일</option>
+                          <option>최종 수정일</option>
+                          <option>최종 전송일</option>
+                          <option>판매 종료일</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                          <input type="text" id="datePicker1" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                          <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                        </div>
+                        <span class="wave float-left">~</span>
+                        <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                          <input type="text" id="datePicker2" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                          <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                        </div>
+                        <div class="btn-wrap float-left">
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_13">오늘</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_14">일주일</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_15">1개월</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_16">3개월</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_17">1년</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">쇼핑몰</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">전체 쇼핑몰 보기</option>
+                          <option>스마트스토어</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">버전 선택</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">쇼핑몰 아이디</option>
+                          <option>asa018@naver.com</option>
+                        </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">검색</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">알림 전체</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">판매상태</option>
+                          <option>알림 전체</option>
+                          <option>등록상품 있음</option>
+                          <option>등록상품 없음</option>
+                          <option>복사</option>
+                          <option>몰별 가격상품</option>
+                          <option>품목 미적용</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">상품명</option>
+                          <option>판매상태</option>
+                          <option>판매중</option>
+                          <option>품절</option>
+                          <option>판매종료</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 250px">
+                          <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="info-box my-2">
+                <div class="wrap-btn">
+                  <a class="btn btn-outline-dark" href="#">검색</a>
+                  <a class="btn btn-outline-dark" href="#">초기화</a>
+                </div>
+              </div>
+            </div>
+			    </div>
+          <br>
+          <div class="card-shadow">
+            <div class="info-box mb-3">
+              <div class="info">
+                <span>● 자료수: 총 {{registeredPagination.totalCount}} 건</span>
+              </div>
+              <div class="wrap-btn">
+                <a class="btn btn-outline-dark" href="#">송장정보 저장</a>
+                <a class="btn btn-outline-dark" href="#">주문일괄변경</a>
+                <a class="btn btn-outline-dark" href="#">엑셀작업</a>
+                <!--  <a class="btn btn-file mr-0" href="#"><i class="fal fa-file-alt"></i></a> 문서모양막아놓기-->
+                <a class="btn btn-file" href="#"><i class="far fa-file-download"></i></a>
+              </div>
+            </div>
+            <div class="scroll">
+            <table class="centered table mb-2 _scroll ">
+              <colgroup>
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:7%">
+                <col style="width:5%">
+                <col style="width:10%">
+                <col style="width:14%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:8%">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>선택</th>
+                <th>등록코드</th>
+                <th>보관 상품코드</th>
+                <th>고객사 상품코드</th>
+                <th>카테고리</th>
+                <th>상품명</th>
+                <th>판매상태</th>
+                <th>판매가</th>
+                <th>사용자 판매가</th>
+                <th>마진율(%)</th>
+                <th>전체수량</th>
+                <th>최종 수정일</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for ="(registeredProduct,idx) in registeredProductList" :key="'registered_'+idx" :class="{active: idx === registeredSelectedTab}" @click="registeredTabClick(registeredProduct,idx)">
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" v-model="registered_check" :value="registeredProduct" class="custom-control-input">
+                    <label class="custom-control-label"></label>
+                  </div>
+                </td>
+                <td><a :href="`http://smartstore.naver.com/manhwasuper/products/${registeredProduct.linkCd}`" target='_blank'>{{registeredProduct.linkCd}}</a></td>
+                <td>{{registeredProduct.prodCd}}</td>
+                <td>{{registeredProduct.partnerCd}}</td>
+                <td>{{registeredProduct.categoryLNm}}</td>
+                <td>{{registeredProduct.prodNm}}</td>
+                <td>{{registeredProduct.prodStatus | prodStatus}}</td>
+                <td>{{registeredProduct.prodPrice}}</td>
+                <td>{{registeredProduct.uprodPrice}}</td>
+                <td>{{registeredProduct.margin}}</td>
+                <td>{{registeredProduct.invenCnt}}</td>
+                <td>{{registeredProduct.uptDate}}</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            <RegisteredPagination @paging="registeredListSend">
+            </RegisteredPagination>
+
+            <div class="info-box my-2">
+              <div class="wrap-btn">
+                <button class="btn btn-outline-dark" href="#">주문삭제</button>
+                <button class="btn btn-outline-dark" href="#">일괄문자전송</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 쇼핑몰등록실패 -->
+        <div v-show="currentTab==4">
+          <div class="card-shadow">
+            <div class="box-grey">
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">일자</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">등록일</option>
+                          <option>최종 수정일</option>
+                          <option>최종 전송일</option>
+                          <option>판매 종료일</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                          <input type="text" id="datePicker1" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                          <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                        </div>
+                        <span class="wave float-left">~</span>
+                        <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                          <input type="text" id="datePicker2" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                          <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                        </div>
+                        <div class="btn-wrap float-left">
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_13">오늘</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_14">일주일</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_15">1개월</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_16">3개월</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_17">1년</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">쇼핑몰</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">전체 쇼핑몰 보기</option>
+                          <option>스마트스토어</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">버전 선택</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">쇼핑몰 아이디</option>
+                          <option>asa018@naver.com</option>
+                        </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">검색</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">알림 전체</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">판매상태</option>
+                          <option>알림 전체</option>
+                          <option>등록상품 있음</option>
+                          <option>등록상품 없음</option>
+                          <option>복사</option>
+                          <option>몰별 가격상품</option>
+                          <option>품목 미적용</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">상품명</option>
+                          <option>판매상태</option>
+                          <option>판매중</option>
+                          <option>품절</option>
+                          <option>판매종료</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 250px">
+                        <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="info-box my-2">
+                <div class="wrap-btn">
+                  <a class="btn btn-outline-dark" href="#">검색</a>
+                  <a class="btn btn-outline-dark" href="#">초기화</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="card-shadow">
+            <div class="info-box mb-3">
+              <div class="info">
+                <span>● 자료수: 총2 건</span>
+              </div>
+              <div class="wrap-btn">
+                <a class="btn btn-outline-dark" href="#">송장정보 저장</a>
+                <a class="btn btn-outline-dark" href="#">주문일괄변경</a>
+                <a class="btn btn-outline-dark" href="#">엑셀작업</a>
+                <!--  <a class="btn btn-file mr-0" href="#"><i class="fal fa-file-alt"></i></a> 문서모양막아놓기-->
+                <a class="btn btn-file" href="#"><i class="far fa-file-download"></i></a>
+              </div>
+            </div>
+            <table class="centered table mb-2">
+              <colgroup>
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>선택</th>
+                <th>알림</th>
+                <th>주문수집일</th>
+                <th>쇼핑몰 주문번호</th>
+                <th>주문상태</th>
+                <th>쇼핑몰(ID)</th>
+                <th>주문자</th>
+                <th>상품명(옵션)</th>
+                <th>택배사</th>
+                <th>송장번호</th>
+                <th>수량</th>
+                <th>주문액</th>
+                <th>수취인</th>
+                <th>휴대번호</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" title="checkbox">
+                    <label class="custom-control-label"></label>
+                  </div>
+                </td>
+                <td>묶음</td>
+                <td>2021-08-08</td>
+                <td>5195561922</td>
+                <td>배송준비</td>
+                <td>asa@naver.com</td>
+                <td>홍길동</td>
+                <td>GPS 수신</td>
+                <td>택배사</td>
+                <td>1234-5678</td>
+                <td>1</td>
+                <td>125,000</td>
+                <td>홍길동</td>
+                <td>010-1234-1234</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" title="checkbox">
+                    <label class="custom-control-label"></label>
+                  </div>
+                </td>
+                <td>묶음</td>
+                <td>2021-08-08</td>
+                <td>5195561922</td>
+                <td>배송준비</td>
+                <td>asa@naver.com</td>
+                <td>홍길동</td>
+                <td>GPS 수신</td>
+                <td>택배사</td>
+                <td>1234-5678</td>
+                <td>1</td>
+                <td>125,000</td>
+                <td>홍길동</td>
+                <td>010-1234-1234</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="info-box my-2">
+              <div class="wrap-btn">
+                <a class="btn btn-outline-dark" href="#">주문삭제</a>
+                <a class="btn btn-outline-dark" href="#">일괄문자전송</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 수정실패 -->
+        <div v-show="currentTab==5">
+          <div class="card-shadow">
+            <div class="box-grey">
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">일자</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">최종 전송일</option>
+                          <option>등록일</option>
+                          <option>최종 수정일</option>
+                          <option>판매 종료일</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                          <input type="text" id="datePicker1" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                          <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                        </div>
+                        <span class="wave float-left">~</span>
+                        <div class="input-group date float-left" data-provide="datepicker" data-date-today-highlight="true" data-date-language="kr" data-date-format="yyyy.mm.dd" autoclose="true" style="width: 150px">
+                          <input type="text" id="datePicker2" class="form-control form-control-sm" value="2020.02.23" title="datepicker" data-autohide="true">
+                          <button class="btn btn-outline-light btn-calendar btn-calendar-sm add-on" type="submit"><i class="far fa-calendar-alt"></i></button>
+                        </div>
+                        <div class="btn-wrap float-left">
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_13">오늘</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_14">일주일</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_15">1개월</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_16">3개월</a>
+                          <a class="btn btn-outline-dark btn-sm" href="#" data-text="PD_0001_17">1년</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">쇼핑몰</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">전체 쇼핑몰 보기</option>
+                          <option>스마트스토어</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">버전 선택</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">쇼핑몰 아이디</option>
+                          <option>asa018@naver.com</option>
+                        </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-form">
+                  <div class="row">
+                    <div class="col col-12">
+                      <div class="col-title" data-text="PD_0001_12">검색</div>
+                      <div class="col-desc">
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">알림 전체</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">판매상태</option>
+                          <option>알림 전체</option>
+                          <option>등록상품 있음</option>
+                          <option>등록상품 없음</option>
+                          <option>복사</option>
+                          <option>몰별 가격상품</option>
+                          <option>품목 미적용</option>
+                          <option>이관</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 150px">
+                        <select class="custom-select custom-select-sm" title="">
+                          <option selected="">상품명</option>
+                          <option>판매상태</option>
+                          <option>판매중</option>
+                          <option>품절</option>
+                          <option>판매종료</option>
+                        </select>
+                        </div>
+                        <span class="wave float-left">&nbsp;</span>
+                        <div class="input-group float-left" style="width: 250px">
+                          <input type="text" class="form-control form-control-sm" title="text" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="info-box my-2">
+                <div class="wrap-btn">
+                  <a class="btn btn-outline-dark" href="#">검색</a>
+                  <a class="btn btn-outline-dark" href="#">초기화</a>
+                </div>
+              </div>
+            </div>
+			    </div>
+          <br>
+          <div class="card-shadow">
+            <div class="info-box mb-3">
+              <div class="info">
+                <span>● 자료수: 총2 건</span>
+              </div>
+              <div class="wrap-btn">
+                <a class="btn btn-outline-dark" href="#">송장정보 저장</a>
+                <a class="btn btn-outline-dark" href="#">주문일괄변경</a>
+                <a class="btn btn-outline-dark" href="#">엑셀작업</a>
+                <!--  <a class="btn btn-file mr-0" href="#"><i class="fal fa-file-alt"></i></a> 문서모양막아놓기-->
+                <a class="btn btn-file" href="#"><i class="far fa-file-download"></i></a>
+              </div>
+            </div>
+            <table class="centered table mb-2">
+              <colgroup>
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>선택</th>
+                <th>알림</th>
+                <th>주문수집일</th>
+                <th>쇼핑몰 주문번호</th>
+                <th>주문상태</th>
+                <th>쇼핑몰(ID)</th>
+                <th>주문자</th>
+                <th>상품명(옵션)</th>
+                <th>택배사</th>
+                <th>송장번호</th>
+                <th>수량</th>
+                <th>주문액</th>
+                <th>수취인</th>
+                <th>휴대번호</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" title="checkbox">
+                    <label class="custom-control-label"></label>
+                  </div>
+                </td>
+                <td>묶음</td>
+                <td>2021-08-08</td>
+                <td>5195561922</td>
+                <td>배송준비</td>
+                <td>asa@naver.com</td>
+                <td>홍길동</td>
+                <td>GPS 수신</td>
+                <td>택배사</td>
+                <td>1234-5678</td>
+                <td>1</td>
+                <td>125,000</td>
+                <td>홍길동</td>
+                <td>010-1234-1234</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" title="checkbox">
+                    <label class="custom-control-label"></label>
+                  </div>
+                </td>
+                <td>묶음</td>
+                <td>2021-08-08</td>
+                <td>5195561922</td>
+                <td>배송준비</td>
+                <td>asa@naver.com</td>
+                <td>홍길동</td>
+                <td>GPS 수신</td>
+                <td>택배사</td>
+                <td>1234-5678</td>
+                <td>1</td>
+                <td>125,000</td>
+                <td>홍길동</td>
+                <td>010-1234-1234</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="info-box my-2">
+              <div class="wrap-btn">
+                <a class="btn btn-outline-dark" href="#">주문삭제</a>
+                <a class="btn btn-outline-dark" href="#">일괄문자전송</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ModalView :send-data="modalMessage" v-if="isModalViewed" @close-modal="isModalViewed=false">
+  </ModalView>
+</template>
+
+<script>
+import ModalView from "../../components/common/alterPopupModal";
+import DomePagination from "../../components/common/pagination";
+import DbPagination from "../../components/common/pagination";
+import StoragePagination from "../../components/common/pagination"
+import RegisteredPagination from "../../components/common/pagination"
+import {EventBus} from "../../components/event/event-bus";
+import { mapGetters } from 'vuex';
+
+export default {
+  name: 'productmanage',
+  data(){
+    return{
+      currentTab: 0,
+      tabs: ['보관상품등록(개별)', '보관상품등록(대량)', '보관상품','등록상품 관리', '쇼핑몰등록실패', '수정실패'],
+
+      shopProduct: [ {text: '도매매 상품', value: 'Dome'}, {text: 'SellerAll 상품', value: 'Db'} ],
+      selectedShop: 'Dome',
+
+      domeProductList : [],
+      dbProductList : [],
+      storageProductList : [],
+      registeredProductList : [],
+
+      storageModFlag: false,
+      isModalViewed: false,
+      modalMessage: "",
+
+      domeSelectedTab : 0,
+      domePagination: {
+        totalCount: 0,
+        PageSize: 10,
+        pageIndex: 1
+      },
+
+      dbSelectedTab : 0,
+      dbPagination: {
+        totalCount: 0,
+        PageSize: 10,
+        pageIndex: 1
+      },
+
+      storageSelectedTab : 0,
+      storagePagination: {
+        totalCount: 0,
+        PageSize: 10,
+        pageIndex: 1
+      },
+
+      registeredSelectedTab : 0,
+      registeredPagination: {
+        totalCount: 0,
+        PageSize: 10,
+        pageIndex: 1
+      },
+
+      dome_check: [],
+      db_check: [],
+      storage_check: [],
+      storage_check_test : '',
+      dome_detail_cd: '',
+      registered_check: [],
+
+      storage_prodIdx : '',
+      storage_prodCd : '',
+
+      cateList1 : [],
+      cateList2 : [],
+      cateList3 : [],
+      cateList4 : [],
+      selectedCate1 : '',
+      selectedCate2 : '',
+      selectedCate3 : '',
+      selectedCate4 : '',
+
+      stpInfo : [],
+
+      modStorageProduct : { //보관 상품 수정
+        selectedCate1 : "",
+        selectedCate2 : "",
+        selectedCate3 : "",
+        selectedCate4 : "",
+        prodNm : "",
+        uprodNm : "",
+        content : "",
+        listImg : "",
+        prodPrice : "",
+        uprodPrice : "",
+        margin : "",
+        invenCnt : "",
+        prodCd : "",
+        umadePlace : "",
+        maker : "",
+        ubrand : "",
+        model : "",
+        deliArea : "",
+        adultYn : "",
+      },
+
+      /* shopInfo */
+      shopAddress : "",
+      shopNumber : "",
+      shopName : "",
+      shopSellerName : "",
+      shopMemberNo : "",
+      shopLoginId : "",
+      shopAccountNo : "",
+      shopAccountId : "",
+      shopMailSeq : "",
+      shopDefaultChannelNo : "",
+
+       /* dome_detail */
+       no : "",
+       status : "",
+       nego : "",
+       adult : "",
+
+       /*register product*/
+       registerId : ""
+    }
+  },
+
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ])
+  },
+
+  mounted () {
+    axios.post('/api/category/v1/smartstore1',{
+    }).then(res => {
+      this.cateList1 = res.data;
+      this.cateList2 = null;
+      this.cateList3 = null;
+      this.cateList4 = null;
+    })
+  },
+
+  components: {
+    DomePagination,
+    DbPagination,
+    StoragePagination,
+    RegisteredPagination
+  },
+
+  created () {
+    this.domeListSend();
+    this.dbListSend();
+  },
+  filters:{
+    'domeChangeDeli'(value){
+      if(value.toLowerCase() == "s"){
+        return "무료배송";
+      }else if(value.toLowerCase() == "p"){
+        return "선결제";
+      }else if(value.toLowerCase() == "b"){
+        return "착불";
+      }else if(value.toLowerCase() == "c"){
+        return "선택(착불/선결제)";
+      }
+    },
+    'dbChangeDeli'(value){
+      if(value.toLowerCase() == "f"){
+        return "무료";
+      }else if(value.toLowerCase() == "s"){
+        return "선불";
+      }else if(value.toLowerCase() == "g"){
+        return "착불";
+      }else if(value.toLowerCase() == "h"){
+        return "선택(착불/선결제)";
+      }
+    },
+    'prodStatus'(value){
+      if(value == "1"){
+        return "정상";
+      }else if(value == "8"){
+        return "품절";
+      }else{
+        return "정상";
+      }
+    },
+  },
+  methods: {
+    // ##################################################### 공통 메소드 START ##############################################################
+    menuTabClick: function(item,idx) {
+      this.currentTab = idx;
+      if(this.currentTab == 0){
+        if(this.selectedShop =="Db"){
+          EventBus.$emit("dbPaginationInfo",this.dbPagination);
+        }else if(this.selectedShop =="Dome"){
+          EventBus.$emit("domePaginationInfo",this.domePagination);
+        }
+      }else if(this.currentTab == 2){
+        this.storageListSend();
+      }else if(this.currentTab == 3){
+        this.registeredListSend();
+      }
+    },
+    // ##################################################### 공통 메소드 END #################################################################
+    // ##################################################### 보관상품 등록(개별) 메소드(currentTab = 0 ) START ################################
+    domeListSend : function(index){
+      axios.post('/api/product-manage/v1/dome-list',{
+        pageIndex : index ? index : this.domePagination.pageIndex,
+        pageSize : this.domePagination.pageSize
+      }).then(res => {
+        this.domeProductList = res.data.domeggook.list.item;
+        this.domePagination.totalCount = res.data.domeggook.header.numberOfItems;
+        this.domePagination.pageSize = res.data.domeggook.header.itemsPerPage;
+        this.domePagination.pageIndex = res.data.domeggook.header.currentPage;
+        EventBus.$emit("domePaginationInfo",this.domePagination)
+      }).catch(res => {
+        if(res.response.status =="401" || res.response.status =="302"){
+          alert("인증 기간이 만료되었습니다.");
+          this.$router.go('/');
+        }else{
+          this.modalMessage=res.response.data;
+          this.isModalViewed=true;
+        }
+      })
+    },
+    //상품목록 리스트 탭 클릭
+    domeTabClick: function(domeproduct,idx) {
+      this.domeSelectedTab = idx;
+      if(this.dome_check.includes(domeproduct)){
+          this.dome_check.splice(this.dome_check.indexOf(domeproduct),1);
+      }else{
+          this.dome_check[idx] = domeproduct;
+      }
+    },
+    shopInfoConvert : function(shopInfo){
+      this.shopDefaultChannerNo = shopInfo.represent.businessAddressInfo.fullAddressInfo; //인천광역시 서구 봉오재2로 37 (엘에이치웨스턴블루힐) 210동 2404호 (우 : 22732) 
+      this.shopNumber =  shopInfo.defaultChannel.contactInfo.telNo.formattedNumber; //010-9224-8577
+      this.shopName = shopInfo.represent.representName; //만화상회
+      this.shopSellerName = shopInfo.represent.representativeName; //권윤상
+      this.shopMemberNo = shopInfo.memberNo;
+      this.shopLoginId = shopInfo.member.loginId;
+      this.shopAccountNo = shopInfo.id;
+      this.shopAccountId = shopInfo.accountId;
+      this.shopMailSeq = shopInfo.mallSeq;
+      this.shopDefaultChannerNo = shopInfo.defaultChannelNo; //
+    },
+    registerResult : function(result){
+      this.registerId = result.productId;
+      return(this.registerId);
+    },
+    codeConvert : function (domeproduct){
+      for(let inData in domeproduct){
+        this.dome_detail_cd = domeproduct[inData].no
+      }
+      return this.dome_detail_cd;
+    },
+    domeDetailConvert : function (domeproduct){
+      this.no = domeproduct.domeggook.basis.no;
+      this.status = domeproduct.domeggook.basis.status;
+      this.nego = domeproduct.domeggook.basis.nego;
+      this.adult = domeproduct.domeggook.basis.adult;
+    },
+    domeConvert : function (domeproduct){
+      let result = [];
+      for(let inData in domeproduct){
+        let deliFalg ;
+        if(domeproduct[inData].deli.who == "S"){
+          deliFalg = "f";
+        }else if(domeproduct[inData].deli.who == "P"){
+          deliFalg = "s";
+        }else if(domeproduct[inData].deli.who == "B"){
+          deliFalg = "g";
+        }else if(domeproduct[inData].deli.who == "C"){
+          deliFalg = "h";
+        }
+        let adultYn ;
+        if(domeproduct[inData].adultOnly == "true"){
+          adultYn = "Y";
+        }else{
+          adultYn = "N";
+        }
+        let deliPrice ;
+        if(domeproduct[inData].deli.fee == "false"){
+          deliPrice = 0;
+        }else{
+          deliPrice = domeproduct[inData].deli.fee;
+        }
+        let data = {
+          "adultYn" : adultYn,
+          "partnerCd" : "도매매",
+          "deliFlag" : deliFalg,
+          "deliPrice" : deliPrice,
+          "userId" : domeproduct[inData].id,
+          "prodCd" : domeproduct[inData].no,
+          "prodPrice" : domeproduct[inData].price,
+          "listImg" : domeproduct[inData].thumb,
+          "prodNm" : domeproduct[inData].title,
+          "minOrderLimit" : domeproduct[inData].unitQty
+        }
+        result.push(data);
+      }
+      return result;
+    },
+    emptyConvert : function (product){
+      var data = {
+        "userId" : "SellerAll",
+        "partnerCd" : "SellerAll",
+        "prodCd" : product.prodCd,
+        "prodNm" : product.prodNm,
+        "uprodNm" : product.uprodNm,
+        "categoryCd" : this.selectedCate1.categoryCd,
+        "categoryLCd" : this.selectedCate2.categoryCd,
+        "categoryLNm" : this.selectedCate2.categoryNm,      
+        "categoryMCd" : this.selectedCate3.categoryCd,
+        "categoryMNm" : this.selectedCate3.categoryNm,      
+        "categorySCd" : this.selectedCate4.categoryCd,
+        "categorySNm" : this.selectedCate4.categoryNm,
+        "content" : product.content,
+        "listImg" : product.listImg,
+        "prodPrice" : product.prodPrice,
+        "uprodPrice" : product.uprodPrice,
+        "margin" : product.margin,
+        "invenCnt" : product.invenCnt,
+        "umadePlace" : product.umadePlace,
+        "maker" : product.maker,
+        "ubrand" : product.ubrand,
+        "model" : product.model,
+        "deliArea" : product.deliArea,
+        "adultYn" : product.adultYn,
+        "deliFlag" : "s",
+        "deliPrice" : 2500,
+        "minOrderLimit" : 1
+      };
+
+      return data;
+    },
+    storageConvert : function(storageproduct){
+      var prodIdx = storageproduct.prodIdx;
+      var userId = storageproduct.userId;
+      var partnerCd = storageproduct.partnerCd;
+      var prodCd = storageproduct.prodCd;
+      var prodNm = storageproduct.prodNm;
+      var categoryCd = storageproduct.categoryCd;
+      var categoryLCd = storageproduct.categoryLCd;
+      var categoryLNm = storageproduct.categoryLNm;
+      var categoryMCd = storageproduct.categoryMCd;
+      var categoryMNm = storageproduct.categoryMNm;
+      var categorySCd = storageproduct.categorySCd;
+      var categorySNm = storageproduct.categorySNm;
+      var prodPrice = storageproduct.prodPrice;
+      var uprodPrice = storageproduct.uprodPrice;
+      var consumerPrice = storageproduct.consumerPrice;
+      var consumerYn = storageproduct.consumerYn;
+      var deliFlag = storageproduct.deliFlag;
+      var deliPrice = storageproduct.deliPrice;
+      var returnYn = storageproduct.returnYn;
+      var maker = storageproduct.maker;
+      var listImg = storageproduct.listImg;
+      var content = storageproduct.content;
+      var boxQty = storageproduct.boxQty;
+      var prodStatus = storageproduct.prodStatus;
+      var adultYn = storageproduct.adultYn;
+      var taxYn = storageproduct.taxYn;
+      var useYn = storageproduct.useYn;
+      var regDate = storageproduct.regDate;
+      var regName = storageproduct.regName;
+      var uptDate = storageproduct.uptDate;
+      var uptName = storageproduct.uptName;
+      var deliArea = storageproduct.deliArea;
+      var invenType = storageproduct.invenType;
+      var invenCnt = storageproduct.invenCnt;
+      var minOrderLimit = storageproduct.minOrderLimit;
+      var maxOrderLimit = storageproduct.maxOrderLimit;
+      var reserves = storageproduct.reserves;
+      var impoLevel = storageproduct.impoLevel;
+      var priceOpen = storageproduct.priceOpen;
+      var deliType = storageproduct.deliType;
+      var deliPay = storageproduct.deliPay;
+      var imgEnType = storageproduct.imgEnType;
+      var img1 = storageproduct.img1;
+      var margin = storageproduct.margin;
+        
+      var product =
+      {
+        "product": {
+          "saleType": "NEW",
+          "excludeAdminDiscount": false,
+          "excludeGivePresent": false,
+          "payExposure": true,
+          "images": [
+            {
+              "imageType": "REPRESENTATIVE",
+              "order": 1,
+              "imageUrl": "http://shop1.phinf.naver.net/20210917_110/1631837641820TVr2B_PNG/32973484533839972_1584987784.PNG", //listImg
+              "width": 264,
+              "height": 227,
+              "fileSize": 755
+            }
+          ],
+          "videos": [],
+          "detailAttribute": {
+            "naverShoppingSearchInfo": {},
+            "afterServiceInfo": {
+              "afterServiceTelephoneNumber": "010-9224-8577", //this.shopNumber,
+              "afterServiceGuideContent": "제조사에 문의하세요."
+            },
+            "originAreaInfo": {
+              "type": "LOCAL",
+              "originArea": {
+                "code": "0002281"
+              }
+            },
+            "sellerCodeInfo": {
+              "sellerManagementCode": "",
+              "sellerBarcode": "",
+              "sellerCustomCode1": "",
+              "sellerCustomCode2": ""
+            },
+            "seoInfo": {
+              "sellerTags": [],
+              "pageTitle": "",
+              "metaDescription": ""
+            },
+            "optionInfo": {
+              "optionUsable": false,
+              "options": [],
+              "optionCombinations": [],
+              "optionStandards": [],
+              "optionDeliveryAttributes": [],
+              "useStockManagement": true
+            },
+            "supplementProductInfo": {
+              "sortType": "CREATE",
+              "count": 0,
+              "usable": false,
+              "supplementProducts": []
+            },
+            "purchaseReviewInfo": {
+              "purchaseReviewExposure": true
+            },
+            "customMadeInfo": {
+              "customMade": false
+            },
+            "taxType": "TAX",
+            "productCertificationInfos": [],
+            "minorPurchasable": true,
+            "productInfoProvidedNotice": {
+              "productInfoProvidedNoticeType": "ETC",
+              "productInfoProvidedNoticeContent": {
+                "templateType": "PRODUCT_INFO_PROVIDED_NOTICE",
+                "productInfoProvidedNoticeType": "ETC",
+                "returnCostReason": "0",
+                "noRefundReason": "0",
+                "qualityAssuranceStandard": "0",
+                "compensationProcedure": "0",
+                "troubleShootingContents": "0",
+                "itemName": "상세정보 참조",
+                "modelName": "상세정보 참조",
+                "certificateDetails": "상세정보 참조",
+                "manufacturer": "상세정보 참조",
+                "afterServiceDirector": "상세정보 참조"
+              }
+            },
+            "productAttributes": [],
+            "consumptionTax": "TEN",
+            "certificationTargetExcludeContent": {
+              "kcYn": "TRUE"
+            },
+            "useReturnCancelNotification": false,
+            "sellerCodeInfo": {
+              "sellerManagementCode": prodCd, //prodCd
+              "sellerBarcode": "",
+              "sellerCustomCode1": "",
+              "sellerCustomCode2": ""
+            }
+          },
+          "detailContent": {
+            "editorType": "NONE",
+            "editorTypeForEditor": "SEONE",
+            "existsRemoveTags": false,
+            "productDetailInfoContent": "testcontent"
+          },
+          "deliveryInfo": {
+            "deliveryType": "DELIVERY",
+            "deliveryAttributeType": "NORMAL",
+            "deliveryFee": {
+              "deliveryFeeType": "PAID",
+              "baseFee": 2500,
+              "deliveryFeePayType": "PREPAID",
+              "deliveryFeeByArea": {
+                "deliveryAreaType": "AREA_3",
+                "area2extraFee": 3000,
+                "area3extraFee": 5000
+              }
+            },
+            "claimDeliveryInfo": {
+              "returnDeliveryCompany": {
+                "regDate": "2020-08-19T14:05:40.011+0000",
+                "modDate": "2020-08-19T14:05:40.011+0000",
+                "regAuditInfo": {
+                  "memberNo": this.shopMemberNo, //101057393,
+                  "loginId":  this.shopLoginId, //"as****",
+                  "name":  this.shopSellerName, //"권*상",
+                  "memberType": "NAVER",
+                  "ip": "49.168.141.108",
+                  "requestId": "0dmVJtm4TeaSd_3-Yd7AQQ",
+                  "isMasking": true,
+                  "adminViewText":  this.shopLoginId, //"as****(NAVER)"
+                },
+                "modAuditInfo": {
+                  "memberNo": this.shopMemberNo, //101057393,
+                  "loginId":  this.shopLoginId, //"as****",
+                  "name": this.shopSellerName, //"권*상",
+                  "memberType": "NAVER",
+                  "ip": "49.168.141.108",
+                  "requestId": "0dmVJtm4TeaSd_3-Yd7AQQ",
+                  "isMasking": true,
+                  "adminViewText":  this.shopLoginId, //"as****(NAVER)"
+                },
+                "id": 1146763,
+                "accountNo": this.shopAccountNo, //100807757,
+                "returnDeliveryCompanyPriorityType": "PRIMARY",
+                "naverPayAppointment": true,
+                "deliveryCompanyName": "우체국택배"
+              },
+              "returnDeliveryCompanySeq": 1146763,
+              "returnDeliveryFee": deliPrice,
+              "exchangeDeliveryFee": 5000,
+              "shippingAddress": {
+                "id": 102324513,
+                "accountNo": this.shopAccountNo, //100807757,
+                "alias": "상품출고지",
+                "addressType": "RELEASE",
+                "addressInfo": {
+                  "fullAddressInfo": this.shopAddress, //"인천광역시 서구 봉오재2로 37 (엘에이치웨스턴블루힐) 210동 2404호 (우 : 22732) "
+                },
+                "isOverseas": false
+              },
+              "shippingAddressId": 102324513,
+              "returnAddress": {
+                "id": 102324514,
+                "accountNo": this.shopAccountNo, //100807757,
+                "alias": "반품교환지",
+                "addressType": "REFUND_OR_EXCHANGE",
+                "addressInfo": {
+                  "fullAddressInfo": this.shopAddress, //"인천광역시 서구 봉오재2로 37 (엘에이치웨스턴블루힐) 210동 2404호 (우 : 22732) "
+                },
+                "isOverseas": false
+              },
+              "returnAddressId": 102324514,
+              "freeReturnInsuranceYn": false
+            },
+            "installationFee": false,
+            "accountNo": this.shopAccountNo, //100807757,
+            "cloneDeliveryAttributeType": "NORMAL",
+            "customMadeDirectInputYn": false,
+            "expectedDeliveryPeriodType": "",
+            "expectedDeliveryPeriodDirectInput": ""
+          },
+          "customerBenefit": {},
+          "productStats": {},
+          "representImageUrl": "",
+          "useSalePeriod": false,
+          "category": {
+            "id": "50001914",
+            "parentId": "50000024",
+            "name": "헬스보충제", //categorySNM
+            "wholeCategoryId": "50000006>50000024>50001914", //wholeCategoryId
+            "wholeCategoryName": "식품>다이어트식품>헬스보충제", //wholeCategoryName
+            "level": 3, //level
+            "lastLevel": true,
+            "deleted": false,
+            "sellBlogUse": true,
+            "sortOrder": 0,
+            "juvenileHarmful": false,
+            "$promise": {},
+            "$resolved": true,
+            "$order": 21,
+            "exceptionalCategoryTypes": [
+              "REVIEW_UNEXPOSE",
+              "REGULAR_SUBSCRIPTION"
+            ],
+            "exceptionalCategoryAttributes": []
+          },
+          "name": prodNm,
+          "liveDiscountBenefit": null,
+          "salePrice": uprodPrice,
+          "stockQuantity": 999 //invenCnt
+        },
+        "savedTemplate": {
+          "EVENT_PHRASE": false
+        },
+        "singleChannelProductMap": {
+          "STOREFARM": {
+            "id": "",
+            "selfProductNameUsable": false,
+            "channelProductName": "",
+            "channelServiceType": "STOREFARM",
+            "channelProductType": "SINGLE",
+            "channel": null,
+            "epInfo": {
+              "naverShoppingRegistration": true,
+              "enuriRegistration": false,
+              "danawaRegistration": false,
+              "naverDisabled": false,
+              "enuriDisabled": true,
+              "danawaDisabled": true,
+              "disabledAll": false
+            },
+            "channelProductDisplayStatusType": "ON",
+            "channelProductStatusType": "NORMAL",
+            "storeKeepExclusiveProduct": false,
+            "orderRequestUsable": false,
+            "best": false,
+            "bbsConfig": false,
+            "materialImages": [],
+            "tagImages": [],
+            "barcodeImage": null,
+            "affiliateInfo": {
+              "affiliateYn": false
+            },
+            "channelNo": 100870126, //this.shopDefaultChannerNo,
+          }
+        },
+        "representNo": 100779884,
+        "representName": this.shopName, //"만화상회",
+        "representativeBirthDay": "1981-09-07T15:00:00.000+0000",
+        "representType": "DOMESTIC_BUSINESS",
+        "productRegistAuthCategories": [
+          "HEALTH_FUNC_FOOD"
+        ],
+        "accountNo": this.shopAccountNo, //100807757,
+        "accountId": this.shopAccountId, //"ncp_1o0nrh_01",
+        "advertiser": true,
+        "mallSeq": this.shopMailSeq, //1953499,
+        "defaultChannelNo": 100870126, //this.shopDefaultChannerNo,
+        "accountExternalStatusType": "NORMAL",
+        "npayRefKey": "510817653",
+        "payUseYn": true,
+        "actionGrade": "FOURTH",
+        "branchUseYn": false,
+        "sellerNo": 510817653,
+        "ownerChannelInfoList": [
+          {
+            "id": this.shopDefaultChannerNo, //100870126,
+            "accountNo": this.shopAccountNo, //100807757,
+            "type": "STOREFARM",
+            "name": this.shopName, //"만화상회",
+            "url": "manhwasuper",
+            "channelExternalStatusType": "NORMAL",
+            "talkAccountId": "w4ue50",
+            "talkExposure": true,
+            "subVerticalServiceTypes": [],
+            "payUseYn": true,
+            "channelServiceType": "STOREFARM",
+            "fullUrl": "https://smartstore.naver.com/manhwasuper",
+            "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
+          }
+        ],
+        "thisDayDispatchBasisHour": 16,
+        "thisDayDispatchBasisMinute": 0,
+        "sellerHolidayList": [
+          "2021-09-16",
+          "2021-09-17"
+        ],
+        "enforcedPermitPreOrderConfig": false,
+        "subscriptionUseYn": false,
+        "businessType": "PRIVATE",
+        "freeReturnInsuranceYn": false,
+        "searchableChannelInfoListMap": {
+          "STOREFARM": [
+            {
+              "id": this.shopDefaultChannerNo, //100870126,
+              "accountNo": this.shopAccountNo, //100807757,
+              "type": "STOREFARM",
+              "name": this.shopName, //"만화상회",
+              "url": "manhwasuper",
+              "channelExternalStatusType": "NORMAL",
+              "talkAccountId": "w4ue50",
+              "talkExposure": true,
+              "subVerticalServiceTypes": [],
+              "payUseYn": true,
+              "channelServiceType": "STOREFARM",
+              "fullUrl": "https://smartstore.naver.com/manhwasuper",
+              "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
+            }
+          ]
+        },
+        "hasTalkTalkChannel": true,
+        "brandPackageCatalogType": false,
+        "overseas": false,
+        "epNaverShoppingOperable": true,
+        "creatableChannelInfoListMap": {
+          "STOREFARM": [
+            {
+              "id": this.shopDefaultChannerNo, //100870126,
+              "accountNo": this.shopAccountNo, //100807757,
+              "type": "STOREFARM",
+              "name": this.shopNamem, //"만화상회",
+              "url": "manhwasuper",
+              "channelExternalStatusType": "NORMAL",
+              "talkAccountId": "w4ue50",
+              "talkExposure": true,
+              "subVerticalServiceTypes": [],
+              "payUseYn": true,
+              "channelServiceType": "STOREFARM",
+              "fullUrl": "https://smartstore.naver.com/manhwasuper",
+              "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
+            }
+          ]
+        },
+        "updatableChannelInfoListMap": {
+          "STOREFARM": [
+            {
+              "id": this.shopDefaultChannerNo, //100870126,
+              "accountNo": this.shopAccountNo, //100807757,
+              "type": "STOREFARM",
+              "name": this.shopName, //"만화상회",
+              "url": "manhwasuper",
+              "channelExternalStatusType": "NORMAL",
+              "talkAccountId": "w4ue50",
+              "talkExposure": true,
+              "subVerticalServiceTypes": [],
+              "payUseYn": true,
+              "channelServiceType": "STOREFARM",
+              "fullUrl": "https://smartstore.naver.com/manhwasuper",
+              "mobileUrl": "https://m.smartstore.naver.com/manhwasuper"
+            }
+          ]
+        },
+        "epEnuriOperable": false,
+        "epDanawaOperable": false,
+        "adult": true
+      }
+
+      return product;
+    },
+    dbListSend : function(index){
+      axios.post('/api/product-manage/v1/db-list',{
+        pageIndex : index ? index : this.dbPagination.pageIndex,
+        pageSize : this.dbPagination.pageSize
+      }).then(res => {
+        this.dbProductList = res.data.resultList;
+        this.dbPagination.totalCount = res.data.totalCount;
+        this.dbPagination.pageSize = res.data.pageSize;
+        this.dbPagination.pageIndex = res.data.pageIndex;
+        EventBus.$emit("dbPaginationInfo",this.dbPagination)
+      }).catch(res => {
+        if(res.response.status =="401" || res.response.status =="302"){
+          alert("인증 기간이 만료되었습니다.");
+          this.$router.go('/');
+        }else{
+          this.modalMessage=res.response.data;
+          this.isModalViewed=true;
+        }
+      })
+    },
+    //상품목록 리스트 탭 클릭
+    dbTabClick: function(dbproduct,idx) {
+      this.dbSelectedTab = idx;
+      if(this.db_check.includes(dbproduct)){
+          this.db_check.splice(this.db_check.indexOf(dbproduct),1);
+      }else{
+          this.db_check[idx] = dbproduct;
+      }
+    },
+    productTabChange(event) {
+      //console.log(event.target.value)
+      if(event.target.value =="Db"){
+        EventBus.$emit("dbPaginationInfo",this.dbPagination);
+      }else if(event.target.value =="Dome"){
+        EventBus.$emit("domePaginationInfo",this.domePagination);
+      }
+    },
+    storageInit : function(){
+        this.dome_check=[];
+        this.db_check=[];
+    },
+    //상품 등록
+    storageRegister : function(){
+      if(this.selectedShop == "Dome"){
+        if(this.dome_check == null || this.dome_check == ""){
+          alert("상품을 선택해주세요.");
+        }else{
+          axios.post('/api/product-manage/v1/storage-product',this.domeConvert(this.dome_check)).then(res => {
+            alert("등록 완료");
+          }).catch(res => {
+            if(res.response.status =="401" || res.response.status =="302"){
+              alert("인증 기간이 만료되었습니다.");
+              this.$router.go('/');
+            }else{
+              this.modalMessage=res.response.data;
+              this.isModalViewed=true;
+            }
+          })
+          /*dome_detail
+          axios.post('/api/product-manage/v1/dome-detail', this.codeConvert(this.dome_check)).then(res => {
+            this.domeDetailConvert(res.data);
+          })
+          */
+        }
+      } else if(this.selectedShop == "Db"){
+        if(this.db_check == null || this.db_check === ""){
+          alert("상품을 선택해주세요.");
+        }else{
+          axios.post('/api/product-manage/v1/storage-product',this.db_check).then(res => {
+            alert("등록 완료");
+          }).catch(res => {
+            if(res.response.status =="401" || res.response.status =="302"){
+              alert("인증 기간이 만료되었습니다.");
+              this.$router.go('/');
+            }else{
+              this.modalMessage=res.response.data;
+              this.isModalViewed=true;
+            }
+          })
+        }
+      } else{
+        alert("예외처리");
+      }
+    },
+    //빈데이터 등록
+    emptyRegister : function(){
+      axios.post('/api/product-manage/v1/empty-product', this.emptyConvert(this.modStorageProduct)).then(res => {      
+        alert("등록 완료");
+      })
+    },
+    //보관상품 수정modifySend
+    storageModify : function(){
+    },
+    changeCate1 : function(event){
+      axios.post('/api/category/v1/smartstore2',{
+        fg : this.selectedCate1.fg,
+        categoryCd : this.selectedCate1.categoryCd
+      }).then(res => {
+        this.cateList2 = res.data;
+        this.cateList3 = null;
+        this.cateList4 = null;
+      })
+    },
+    changeCate2 : function(event){
+      axios.post('/api/category/v1/smartstore3',{
+        fg : this.selectedCate2.fg,
+        categoryCd : this.selectedCate2.categoryCd
+      }).then(res => {
+        this.cateList3 = res.data;
+        this.cateList4 = null;
+      })
+    },
+    changeCate3 : function(event){
+      axios.post('/api/category/v1/smartstore4',{
+        fg : this.selectedCate3.fg,
+        categoryCd : this.selectedCate3.categoryCd
+      }).then(res => {
+        this.cateList4 = res.data;
+      })
+    },
+    // ##################################################### 보관상품 등록(개별) 메소드(currentTab = 0 ) END #############################################
+    // ##################################################### 보관상품 메소드(currentTab = 2 ) START #####################################################
+    modStorage: function(item){
+      this.storageModFlag = true;
+      this.modStorageProduct.prodNm = item.prodNm;
+      this.modStorageProduct.prodPrice = item.prodPrice;
+      this.modStorageProduct.uprodPrice = item.uprodPrice;
+      this.modStorageProduct.margin = item.margin;
+      /*
+      alert(item.prodIdx); //2
+      alert(item.prodCd);
+      alert(item.partnerCd);
+      alert(item.categoryLNm);
+      alert(item.prodNm); //상품명
+      alert(item.prodStatus);
+      alert(item.prodPrice); //판매가
+      alert(item.uprodPrice); //사용자판매가
+      alert(item.margin); //마진율
+      alert(item.invenCnt);
+      alert(item.uptDate);
+      */
+    },
+    storageTabClick  : function(storageProduct,idx){
+      this.storageSelectedTab = idx;
+      this.modStorage(storageProduct);
+      if(this.storage_check.includes(storageProduct)){
+          this.storage_check.splice(this.storage_check.indexOf(storageProduct),1);
+      }else{
+          this.storage_check[idx] = storageProduct;
+      }
+    },
+    storageListSend : function(index){
+      axios.post('/api/product-manage/v1/storage-list',{
+        pageIndex : index ? index : this.storagePagination.pageIndex,
+        pageSize : this.storagePagination.pageSize
+      }).then(res => {
+        this.storageProductList = res.data.resultList;
+        this.storagePagination.totalCount = res.data.totalCount;
+        this.storagePagination.pageSize = res.data.pageSize;
+        this.storagePagination.pageIndex = res.data.pageIndex;
+        EventBus.$emit("storagePaginationInfo",this.storagePagination);
+      }).catch(res => {
+        if(res.response.status =="401" || res.response.status =="302"){
+          alert("인증 기간이 만료되었습니다.");
+          this.$router.go('/');
+        }else{
+          this.modalMessage=res.response.data;
+          this.isModalViewed=true;
+        }
+      })
+    },
+    storageCheckInit : function(){
+        this.storage_check=[];
+        this.storageModFlag = false;
+    },
+    storageDeleteSend : function(){
+      let deleteParam = [];
+      for(let data in this.storage_check){
+        deleteParam.push({ prodIdx : this.storage_check[data].prodIdx });
+      }
+      axios.post('/api/product-manage/v1/storage-product-del',deleteParam).then(res => {
+        this.storageListSend();
+        alert("삭제 완료");
+      }).catch(res => {
+        if(res.response.status =="401" || res.response.status =="302"){
+          alert("인증 기간이 만료되었습니다.");
+          this.$router.go('/');
+        }else{
+          this.modalMessage=res.response.data;
+          this.isModalViewed=true;
+        }
+      })
+    },
+    saveStore : function(){
+      if(this.storage_check == null || this.storage_check == ""){
+        alert("상품을 선택해주세요.");
+        return;
+      }
+
+      /*
+      if(this.storage_check.categoryLNm == null || this.storage_check.categoryLNm == ""){
+        alert("카테고리를 등록해주세요.");
+        return;
+      }
+      */
+
+      //샵 정보 선셋팅
+      axios.post('/api/product-manage/v1/info-stp',{
+      }).then(res => {
+        this.shopInfoConvert(res.data);
+      })
+
+      for(let inData in this.storage_check){
+        this.storage_check_test = this.storage_check[inData];
+        this.storage_prodIdx = this.storage_check_test.prodIdx;
+        this.storage_prodCd = this.storage_check_test.prodCd;
+
+        axios.post('/api/product-manage/v1/register-stp', this.storageConvert(this.storage_check_test)).then(res1 => {
+          axios.post('/api/product-manage/v1/register-stp-after',{
+            prodIdx : this.storage_prodIdx,
+            prodCd : this.storage_prodCd,
+            editCd : res1.data.productId,
+            linkCd : res1.data.singleChannelProductMap.STOREFARM.id
+          }).then(res2 => {
+            //alert("상품이 등록되었습니다");
+            alert(res2.data);
+          })
+        })
+      }
+    },
+    // ##################################################### 보관상품 메소드(currentTab = 2 ) END #####################################################
+    // ##################################################### 등록상품 관리 메소드(currentTab = 3 ) START ################################################
+    registeredTabClick  : function(registeredProduct,idx){
+      this.registeredSelectedTab = idx;
+      this.modStorage(registeredProduct);
+      if(this.registered_check.includes(registeredProduct)){
+          this.registered_check.splice(this.registered_check.indexOf(registeredProduct),1);
+      }else{
+          this.registered_check[idx] = registeredProduct;
+      }
+    },
+    registeredListSend : function(index){
+      axios.post('/api/product-manage/v1/registered-list',{
+        pageIndex : index ? index : this.registeredPagination.pageIndex,
+        pageSize : this.registeredPagination.pageSize
+      }).then(res => {
+        this.registeredProductList = res.data.resultList;
+        this.registeredPagination.totalCount = res.data.totalCount;
+        this.registeredPagination.pageSize = res.data.pageSize;
+        this.registeredPagination.pageIndex = res.data.pageIndex;
+        EventBus.$emit("registeredPaginationInfo",this.storagePagination);
+      }).catch(res => {
+        if(res.response.status =="401" || res.response.status =="302"){
+          alert("인증 기간이 만료되었습니다.");
+          this.$router.go('/');
+        }else{
+          this.modalMessage=res.response.data;
+          this.isModalViewed=true;
+        }
+      })
+    }
+
+    // ##################################################### 등록상품 관리 메소드(currentTab = 3 ) END ##################################################
+
+    
+    
+
+  }
+}
+
+</script>
+
+<style scoped>
+</style>

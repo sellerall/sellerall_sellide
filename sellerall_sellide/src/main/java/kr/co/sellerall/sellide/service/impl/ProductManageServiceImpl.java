@@ -150,8 +150,7 @@ public class ProductManageServiceImpl implements ProductManageService {
 		resultVO.handleResultList(list,total);
 		resultVO.setPageIndex(param.getPageIndex());
 		resultVO.setPageSize(param.getPageSize());
-		return resultVO;
-		
+		return resultVO;	
 	}
 
 	@Override
@@ -297,17 +296,6 @@ public class ProductManageServiceImpl implements ProductManageService {
 	}
 	
 	@Override
-	public String naverUploadCheck(Object request, String result) {
-		JsonParser jsonParser = new JsonParser();
-		JsonElement element = jsonParser.parse(result);
-		
-		String editId = element.getAsJsonObject().get("productId").getAsString();		
-		logger.debug("등록 id "+editId);
-		
-		return editId;
-	}
-	
-	@Override
 	public String naverProductEdit(Object request, Map cookies) {
 		String result = "";
 		try {
@@ -369,5 +357,27 @@ public class ProductManageServiceImpl implements ProductManageService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public String updateRegisterCode(StorageProductRequestVO param, SessionUser user) {	
+		storageProductDao.updateRegisterCode((String)Constants.STORAGE_TABLE+user.getUserSeq(), param);		
+
+		return "상품이 등록되었습니다";
+	}
+
+	// 등록상품관리 서비스
+	@Override
+	public ResultVO registeredProductList(StorageProductRequestVO param, SessionUser user) {
+		ResultVO resultVO = new ResultVO();
+		int total = 0;
+		
+		List<StorageProductDTO> list = storageProductDao.selectRegisteredProductList((String)Constants.STORAGE_TABLE+user.getUserSeq(), param);
+		total = storageProductDao.selectStorageProductListTotal((String)Constants.STORAGE_TABLE+user.getUserSeq());
+		resultVO.handleResultList(list,total);
+		resultVO.setPageIndex(param.getPageIndex());
+		resultVO.setPageSize(param.getPageSize());
+
+		return resultVO;
 	}
 }

@@ -30,8 +30,11 @@ public interface ProductManageService {
 	Map naverLogin(SessionUser user);
 	String naverUserInfo(Map cookies);
 	public String naverProductUpload(Object param, Map cookies);
-	public String naverUploadCheck(Object request, String result);
 	public String naverProductEdit(Object request, Map cookies);
+	public String updateRegisterCode(StorageProductRequestVO param, SessionUser user);
+	
+	/* 등록상품관리 서비스 */
+	ResultVO registeredProductList(StorageProductRequestVO param, SessionUser user);
 	
 	default DbProductResponseVO EntityTOvo(TbProduct vo) {
 		return DbProductResponseVO.builder()
