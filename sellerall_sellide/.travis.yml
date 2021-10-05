@@ -9,4 +9,8 @@ jdk:
 notifications:
   email:
     recipients:
+<<<<<<< HEAD
       - sellerall0401@gmail.com
+=======
+      - sellerall0401@gmail.com
+>>>>>>> refs/remotes/origin/main
